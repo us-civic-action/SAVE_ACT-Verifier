@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo, useEffect } from 'react';
 import {
   ShieldCheck,
@@ -147,7 +146,7 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const calculateResults = (): { status: EligibilityStatus; checklist: React.ReactNode[] } => {
+  const calculateResults = (): { status: EligibilityStatus; checklist: React.ReactNode[]; actionItems: { title: string; description: string; icon: React.ReactNode }[] } => {
     const { answers } = state;
     const isCitizen = answers['citizenship'] === true;
     const isOfAge = answers['age'] === true;
@@ -157,23 +156,26 @@ const App: React.FC = () => {
     const namesMatch = answers['nameMatch'] === true;
 
     const checklist: React.ReactNode[] = [];
+    const actionItems: { title: string; description: string; icon: React.ReactNode }[] = [];
 
     if (!isCitizen) {
       return {
         status: 'Ineligible',
-        checklist: [<span className="text-red-600 dark:text-red-400 font-bold">Federal Law (2026 SAVE Act) restricts voter registration to U.S. Citizens only. Non-citizens are not eligible to register.</span>]
+        checklist: [<span className="text-red-600 dark:text-red-400 font-bold">Federal Law (2026 SAVE Act) restricts voter registration to U.S. Citizens only. Non-citizens are not eligible to register.</span>],
+        actionItems: []
       };
     }
 
     if (!isOfAge) {
       return {
         status: 'Ineligible',
-        checklist: [<span>You must be at least 18 years old on or before Election Day. You may be able to pre-register depending on local {selectedStateData?.name} laws.</span>]
+        checklist: [<span>You must be at least 18 years old on or before Election Day. You may be able to pre-register depending on local {selectedStateData?.name} laws.</span>],
+        actionItems: []
       };
     }
 
     if (!isResident || !hasResidencyProof) {
-      checklist.push(
+      const item = (
         <div className={`flex flex-col gap-3 p-5 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-blue-50/50 border-blue-100 dark:bg-blue-900/10 dark:border-blue-900/30'}`}>
           <div className="flex items-center gap-2 text-blue-900 dark:text-blue-300 font-black uppercase tracking-[0.15em] text-[10px]">
             <Home className="w-4 h-4" />
@@ -194,8 +196,13 @@ const App: React.FC = () => {
           </div>
         </div>
       );
+      checklist.push(item);
+      actionItems.push({
+        title: 'Establish Residency',
+        description: 'You need a utility bill, bank statement, or government mailer with your name and address.',
+        icon: <Home className="w-5 h-5" />
+      });
     }
-
     let residencyDurationMet = false;
 
     if (selectedStateData && selectedStateData.residencyDays > 0) {
@@ -215,6 +222,11 @@ const App: React.FC = () => {
             </div>
           </div>
         );
+        actionItems.push({
+          title: 'Wait for Residency Period',
+          description: `You must live in ${selectedStateData.name} for ${selectedStateData.residencyDays} days.`,
+          icon: <Clock className="w-5 h-5" />
+        });
       } else if (hasDuration === true) {
         // User met the requirement. Track it but DO NOT block.
         residencyDurationMet = true;
@@ -222,7 +234,7 @@ const App: React.FC = () => {
     }
 
     if (namesMatch === false) {
-      checklist.push(
+      const item = (
         <div className={`flex flex-col gap-4 p-5 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-amber-50 border-amber-100 dark:bg-amber-900/10 dark:border-amber-900/30'}`}>
           <div className="flex items-center gap-2 text-amber-900 dark:text-amber-300 font-black uppercase tracking-[0.15em] text-[10px]">
             <Fingerprint className="w-4 h-4" />
@@ -245,13 +257,19 @@ const App: React.FC = () => {
           </div>
         </div>
       );
+      checklist.push(item);
+      actionItems.push({
+        title: 'Bridge Name Change',
+        description: 'Provide a Marriage Certificate, Divorce Decree, or Court Order linking your names.',
+        icon: <Fingerprint className="w-5 h-5" />
+      });
     }
 
     if (dpocStatus === 'none' || dpocStatus === 'available') {
       const isStrict = selectedStateData?.strictDPOC;
 
       if (isStrict) {
-        checklist.push(
+        const item = (
           <div className={`flex flex-col gap-5 p-6 rounded-[2.5rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-red-50/50 border-red-100 dark:bg-red-900/10 dark:border-red-900/30'}`}>
             <div className="flex items-center gap-2 text-red-700 dark:text-red-400 font-black uppercase tracking-widest text-[10px]">
               <AlertCircle className="w-4 h-4" />
@@ -274,6 +292,12 @@ const App: React.FC = () => {
             </div>
           </div>
         );
+        checklist.push(item);
+        actionItems.push({
+          title: 'Provide Citizenship Proof',
+          description: 'You MUST have a Passport, Birth Certificate, or Naturalization Certificate.',
+          icon: <AlertCircle className="w-5 h-5" />
+        });
       } else {
         checklist.push(
           <div className={`flex flex-col gap-3 p-5 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-emerald-50/30 border-emerald-100 dark:bg-emerald-900/10 dark:border-emerald-900/30'}`}>
@@ -328,11 +352,12 @@ const App: React.FC = () => {
 
       return {
         status: 'Likely Eligible',
-        checklist: successItems
+        checklist: successItems,
+        actionItems: []
       };
     }
 
-    return { status: 'Action Required', checklist };
+    return { status: 'Action Required', checklist, actionItems };
   };
 
 
@@ -627,7 +652,7 @@ const App: React.FC = () => {
             {state.currentStep === activeQuestions.length && (
               <div className="p-6 md:p-16 animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 {(() => {
-                  const { status, checklist } = calculateResults();
+                  const { status, checklist, actionItems } = calculateResults();
                   return (
                     <div>
                       <div className="text-center mb-14">
@@ -687,23 +712,53 @@ const App: React.FC = () => {
                       </div>
 
                       <div className="flex flex-col gap-4">
-                        {status !== 'Likely Eligible' && (
-                          <p className={`text-center text-xs font-bold ${state.accessibility.isDarkMode ? 'text-amber-400' : 'text-amber-700'}`}>
-                            Unsure how to fix this? Visit your state's official portal:
-                          </p>
+                        {status !== 'Likely Eligible' && actionItems.length > 0 ? (
+                          <div className={`p-6 rounded-[2.5rem] border ${state.accessibility.isDarkMode ? 'bg-amber-950/30 border-amber-900/30' : 'bg-amber-50 border-amber-100'}`}>
+                            <h4 className={`text-center text-xs font-black uppercase tracking-widest mb-6 ${state.accessibility.isDarkMode ? 'text-amber-400' : 'text-amber-700'}`}>
+                              Steps to resolve your status:
+                            </h4>
+                            <div className="space-y-4 mb-8">
+                              {actionItems.map((action, idx) => (
+                                <div key={idx} className="flex items-start gap-4">
+                                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${state.accessibility.isDarkMode ? 'bg-amber-900/50 text-amber-400' : 'bg-amber-100 text-amber-700'}`}>
+                                    {action.icon}
+                                  </div>
+                                  <div>
+                                    <div className={`text-xs font-black uppercase ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'}`}>{action.title}</div>
+                                    <div className={`text-xs leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>{action.description}</div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                            <button
+                              onClick={() => {
+                                const selectedStateData = STATES.find(s => s.code === state.selectedState);
+                                const targetUrl = selectedStateData
+                                  ? `https://vote.gov/register/${selectedStateData.name.toLowerCase().replace(/\s+/g, '-')}`
+                                  : 'https://vote.gov';
+                                window.open(targetUrl, '_blank');
+                              }}
+                              className="w-full flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-black uppercase tracking-[0.2em] py-6 rounded-[2rem] transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:scale-95 text-xs"
+                            >
+                              Register to Vote (Vote.gov) <ExternalLink className="w-4 h-4" />
+                            </button>
+                          </div>
+                        ) : (
+                          // Default / Eligible
+                          <button
+                            onClick={() => {
+                              const selectedStateData = STATES.find(s => s.code === state.selectedState);
+                              const targetUrl = selectedStateData
+                                ? `https://vote.gov/register/${selectedStateData.name.toLowerCase().replace(/\s+/g, '-')}`
+                                : 'https://vote.gov';
+                              window.open(targetUrl, '_blank');
+                            }}
+                            className={`w-full flex items-center justify-center gap-3 text-white font-black uppercase tracking-[0.2em] py-6 rounded-[2rem] transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:scale-95 text-xs ${status === 'Likely Eligible' ? 'bg-blue-600 hover:bg-blue-700' : 'bg-slate-700 hover:bg-slate-800'}`}
+                          >
+                            {status === 'Likely Eligible' ? 'Register to Vote' : 'Check State Requirements'} <ExternalLink className="w-4 h-4" />
+                          </button>
                         )}
-                        <button
-                          onClick={() => {
-                            const selectedStateData = STATES.find(s => s.code === state.selectedState);
-                            const targetUrl = selectedStateData
-                              ? `https://vote.gov/register/${selectedStateData.name.toLowerCase().replace(/\s+/g, '-')}`
-                              : 'https://vote.gov';
-                            window.open(targetUrl, '_blank');
-                          }}
-                          className={`w-full flex items-center justify-center gap-3 text-white font-black uppercase tracking-[0.2em] py-6 rounded-[2rem] transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:scale-95 text-xs ${status === 'Likely Eligible' ? 'bg-blue-600 hover:bg-blue-700' : 'bg-slate-700 hover:bg-slate-800'}`}
-                        >
-                          {status === 'Likely Eligible' ? 'Register to Vote' : 'Check State Requirements'} <ExternalLink className="w-4 h-4" />
-                        </button>
+
                         <button onClick={reset} className="w-full flex items-center justify-center gap-3 bg-transparent text-slate-500 dark:text-slate-400 font-bold uppercase tracking-[0.2em] py-5 rounded-[2rem] hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 active:scale-95 text-[10px]">
                           <RotateCcw className="w-3 h-3" /> Check Another Person
                         </button>
