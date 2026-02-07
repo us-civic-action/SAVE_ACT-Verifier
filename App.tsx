@@ -349,7 +349,7 @@ const App: React.FC = () => {
               </h2>
             </div>
             <div className="prose dark:prose-invert prose-slate max-w-none space-y-8">
-              <div className={`p-8 rounded-[2.5rem] border shadow-inner ${state.accessibility.isHighContrast ? 'bg-white dark:bg-black border-black dark:border-white' : 'bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-700'}`}>
+              <div className={`p-6 md:p-8 rounded-[2.5rem] border shadow-inner ${state.accessibility.isHighContrast ? 'bg-white dark:bg-black border-black dark:border-white' : 'bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-700'}`}>
                 <h4 className="text-sm font-black text-black dark:text-white uppercase tracking-widest mb-4">No Data Collection</h4>
                 <p
                   className={`leading-relaxed text-sm ${largeTextClass}`}
@@ -366,7 +366,7 @@ const App: React.FC = () => {
         );
       case 'statutes':
         return (
-          <div className="p-8 md:p-16 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="p-6 md:p-16 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex items-center gap-4 mb-10">
               <div className="bg-blue-900 dark:bg-blue-600 p-3 rounded-2xl shadow-xl text-white">
                 <Gavel className="w-6 h-6" />
@@ -417,7 +417,7 @@ const App: React.FC = () => {
               >
                 The logic within this tool is derived from <strong>H.R.8281 - Safeguard American Voter Eligibility Act (SAVE Act)</strong>.
               </p>
-              <div className="p-8 bg-blue-50 dark:bg-blue-900/20 rounded-[2.5rem] border border-blue-100 dark:border-blue-900/40">
+              <div className="p-6 md:p-8 bg-blue-50 dark:bg-blue-900/20 rounded-[2.5rem] border border-blue-100 dark:border-blue-900/40">
                 <a
                   href={SAVE_ACT_BILL_URL}
                   target="_blank"
@@ -436,7 +436,7 @@ const App: React.FC = () => {
         );
       case 'contact':
         return (
-          <div className="p-8 md:p-16 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="p-6 md:p-16 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex items-center gap-4 mb-10">
               <div className="bg-blue-900 dark:bg-blue-600 p-3 rounded-2xl shadow-xl text-white">
                 <Mail className="w-6 h-6" />
@@ -471,7 +471,7 @@ const App: React.FC = () => {
         return (
           <>
             {state.currentStep === -1 && (
-              <div className="p-8 md:p-16">
+              <div className="p-6 md:p-16">
                 <div className="text-center mb-10">
                   <div className={`inline-flex items-center justify-center w-28 h-28 rounded-[2.5rem] rotate-3 mb-8 shadow-inner ring-1 transition-transform hover:rotate-0 duration-700 ${state.accessibility.isDarkMode ? 'bg-blue-900/30 text-blue-400 ring-blue-900/50' : 'bg-blue-50 text-blue-900 ring-blue-100/50'}`}>
                     <Scale className="w-14 h-14 -rotate-3" />
@@ -521,7 +521,7 @@ const App: React.FC = () => {
             )}
 
             {state.currentStep >= 0 && state.currentStep < activeQuestions.length && (
-              <div className="p-8 md:p-16">
+              <div className="p-6 md:p-16">
                 {renderProgress()}
                 <div className="mb-12">
                   <button onClick={goBack} className="text-slate-700 dark:text-slate-300 hover:text-black dark:hover:text-white flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] mb-12 transition-colors group">
@@ -535,12 +535,12 @@ const App: React.FC = () => {
                     {activeQuestions[state.currentStep].text}
                   </h3>
                   {state.isPlainEnglishMode && (
-                    <div className={`p-8 mb-12 rounded-[2.5rem] relative overflow-hidden shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-slate-800 ring-slate-700 shadow-blue-900/20' : 'bg-slate-900 ring-white/10 text-white shadow-blue-900/10'}`}>
+                    <div className={`p-6 md:p-8 mb-12 rounded-[2.5rem] relative overflow-hidden shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-slate-800 ring-slate-700 shadow-blue-900/20' : 'bg-slate-900 ring-white/10 text-white shadow-blue-900/10'}`}>
                       <p className={`text-sm font-bold leading-loose ${state.accessibility.isDarkMode ? 'text-slate-200' : 'text-slate-200'} ${largeTextClass}`}>{activeQuestions[state.currentStep].plainEnglish}</p>
                     </div>
                   )}
                   {activeQuestions[state.currentStep].id === 'dpoc' && (
-                    <div className={`p-6 mb-8 rounded-[2rem] border ${state.accessibility.isDarkMode ? 'bg-slate-800/50 border-slate-700' : 'bg-blue-50/50 border-blue-100'}`}>
+                    <div className={`p-6 md:p-6 mb-8 rounded-[2rem] border ${state.accessibility.isDarkMode ? 'bg-slate-800/50 border-slate-700' : 'bg-blue-50/50 border-blue-100'}`}>
                       <h4
                         className="text-xs font-black uppercase tracking-widest mb-4 flex items-center gap-2"
                         style={{ color: state.accessibility.isDarkMode ? '#ffffff' : '#1e293b' }}
@@ -568,7 +568,7 @@ const App: React.FC = () => {
                     <button
                       key={opt.id}
                       onClick={() => handleAnswer(activeQuestions[state.currentStep].id, opt.value)}
-                      className={`w-full text-left p-8 border-2 rounded-[1.8rem] transition-all group relative overflow-hidden active:scale-[0.98] ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700 hover:border-blue-500 hover:bg-slate-700/50' : 'bg-white border-slate-50 hover:border-blue-900 hover:bg-blue-50/20'}`}
+                      className={`w-full text-left p-6 md:p-8 border-2 rounded-[1.8rem] transition-all group relative overflow-hidden active:scale-[0.98] ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700 hover:border-blue-500 hover:bg-slate-700/50' : 'bg-white border-slate-50 hover:border-blue-900 hover:bg-blue-50/20'}`}
                     >
                       <div className="flex items-center justify-between relative z-10">
                         <span className={`font-black text-base uppercase tracking-wider leading-none ${state.accessibility.isDarkMode ? 'text-white' : 'text-black'} ${largeTextClass}`}>{opt.label}</span>
@@ -583,16 +583,16 @@ const App: React.FC = () => {
             )}
 
             {state.currentStep === activeQuestions.length && (
-              <div className="p-8 md:p-16 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+              <div className="p-6 md:p-16 animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 {(() => {
                   const { status, checklist } = calculateResults();
                   return (
                     <div>
                       <div className="text-center mb-14">
                         <div className="inline-flex items-center justify-center mb-10">
-                          {status === 'Likely Eligible' && <div className={`p-8 rounded-[2.5rem] shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-emerald-900/20 ring-emerald-900/50 shadow-emerald-900/30' : 'bg-emerald-50 ring-emerald-100 shadow-emerald-500/10'}`}><CheckCircle2 className="w-24 h-24 text-emerald-500" /></div>}
-                          {status === 'Action Required' && <div className={`p-8 rounded-[2.5rem] shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-amber-900/20 ring-amber-900/50 shadow-amber-900/30' : 'bg-amber-50 ring-amber-100 shadow-amber-500/10'}`}><AlertTriangle className="w-24 h-24 text-amber-500" /></div>}
-                          {status === 'Ineligible' && <div className={`p-8 rounded-[2.5rem] shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-red-900/20 ring-red-900/50 shadow-red-900/30' : 'bg-red-50 ring-red-100 shadow-red-500/10'}`}><XCircle className="w-24 h-24 text-red-500" /></div>}
+                          {status === 'Likely Eligible' && <div className={`p-6 md:p-8 rounded-[2.5rem] shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-emerald-900/20 ring-emerald-900/50 shadow-emerald-900/30' : 'bg-emerald-50 ring-emerald-100 shadow-emerald-500/10'}`}><CheckCircle2 className="w-24 h-24 text-emerald-500" /></div>}
+                          {status === 'Action Required' && <div className={`p-6 md:p-8 rounded-[2.5rem] shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-amber-900/20 ring-amber-900/50 shadow-amber-900/30' : 'bg-amber-50 ring-amber-100 shadow-amber-500/10'}`}><AlertTriangle className="w-24 h-24 text-amber-500" /></div>}
+                          {status === 'Ineligible' && <div className={`p-6 md:p-8 rounded-[2.5rem] shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-red-900/20 ring-red-900/50 shadow-red-900/30' : 'bg-red-50 ring-red-100 shadow-red-500/10'}`}><XCircle className="w-24 h-24 text-red-500" /></div>}
                         </div>
                         <h2 className={`text-6xl font-black uppercase tracking-tighter leading-none mb-4 ${status === 'Likely Eligible' ? 'text-emerald-600' : status === 'Action Required' ? 'text-amber-600' : 'text-red-600'}`}>{status}</h2>
                         <div className="inline-block px-4 py-2 bg-slate-900 dark:bg-blue-600 text-white rounded-[1rem] text-[10px] font-black uppercase tracking-[0.2em] shadow-lg">Jurisdiction: {selectedStateData?.name}</div>
@@ -752,7 +752,7 @@ const App: React.FC = () => {
       </main>
 
       <footer className={`py-12 px-4 border-t transition-colors ${state.accessibility.isDarkMode ? 'bg-slate-950 border-slate-900' : 'bg-white border-slate-100'}`}>
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start gap-8 text-center md:text-left">
           {/* Left Column */}
           <div className="space-y-4 max-w-sm">
             <div>
@@ -765,8 +765,8 @@ const App: React.FC = () => {
           </div>
 
           {/* Right Column / Actions */}
-          <div className="flex flex-col items-end gap-6">
-            <div className="flex items-center gap-6">
+          <div className="flex flex-col items-center md:items-end gap-6 w-full md:w-auto">
+            <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-4">
               <button onClick={() => window.location.href = '/'} className="text-xs font-bold text-slate-800 dark:text-slate-200 hover:text-blue-900 dark:hover:text-blue-400 transition-colors">Home</button>
               <button onClick={() => setView('statutes')} className="text-xs font-bold text-slate-800 dark:text-slate-200 hover:text-blue-900 dark:hover:text-blue-400 transition-colors">Transparency</button>
               <button onClick={() => setShowSettings(true)} className="flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors">
