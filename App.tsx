@@ -687,6 +687,11 @@ const App: React.FC = () => {
                       </div>
 
                       <div className="flex flex-col gap-4">
+                        {status !== 'Likely Eligible' && (
+                          <p className={`text-center text-xs font-bold ${state.accessibility.isDarkMode ? 'text-amber-400' : 'text-amber-700'}`}>
+                            Unsure how to fix this? Visit your state's official portal:
+                          </p>
+                        )}
                         <button
                           onClick={() => {
                             const selectedStateData = STATES.find(s => s.code === state.selectedState);
@@ -695,9 +700,9 @@ const App: React.FC = () => {
                               : 'https://vote.gov';
                             window.open(targetUrl, '_blank');
                           }}
-                          className="w-full flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-black uppercase tracking-[0.2em] py-6 rounded-[2rem] transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:scale-95 text-xs"
+                          className={`w-full flex items-center justify-center gap-3 text-white font-black uppercase tracking-[0.2em] py-6 rounded-[2rem] transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:scale-95 text-xs ${status === 'Likely Eligible' ? 'bg-blue-600 hover:bg-blue-700' : 'bg-slate-700 hover:bg-slate-800'}`}
                         >
-                          Register to Vote (Vote.gov) <ExternalLink className="w-4 h-4" />
+                          {status === 'Likely Eligible' ? 'Register to Vote' : 'Check State Requirements'} <ExternalLink className="w-4 h-4" />
                         </button>
                         <button onClick={reset} className="w-full flex items-center justify-center gap-3 bg-transparent text-slate-500 dark:text-slate-400 font-bold uppercase tracking-[0.2em] py-5 rounded-[2rem] hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 active:scale-95 text-[10px]">
                           <RotateCcw className="w-3 h-3" /> Check Another Person
