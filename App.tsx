@@ -30,9 +30,10 @@ import {
   Sun,
   Type,
   Eye,
+  WifiOff,
+  GitBranch,
   X,
   Coffee,
-  GitBranch,
   Database,
   FileCode
 } from 'lucide-react';
@@ -49,7 +50,6 @@ const App: React.FC = () => {
   const [state, setState] = useState<AppState>({
     currentStep: -1,
     answers: {},
-    isPlainEnglishMode: false,
     selectedState: null,
     view: 'checker',
     accessibility: initialAccessibility
@@ -288,21 +288,39 @@ const App: React.FC = () => {
 
     if (checklist.length === 0) {
       const successItems = [
-        <div key="base" className="flex flex-col gap-1">
-          <span className="font-bold text-emerald-900 dark:text-emerald-400 uppercase tracking-widest text-[10px]">Verification Complete</span>
-          <span className="text-emerald-700 dark:text-emerald-200 text-sm leading-relaxed">You meet the standard identity and residency documentation rules for {selectedStateData?.name}.</span>
+        <div key="base" className={`flex flex-col gap-1 p-5 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-emerald-50/50 border-emerald-100 dark:bg-emerald-900/10 dark:border-emerald-900/30'}`}>
+          <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-400 font-black uppercase tracking-[0.15em] text-[10px]">
+            <ShieldCheck className="w-4 h-4" />
+            Confirmed: Identity Verified
+          </div>
+          <span className="text-sm font-bold text-emerald-900 dark:text-emerald-200 block mt-1">
+            You meet the standard identity documentation rules for {selectedStateData?.name}.
+          </span>
         </div>
       ];
 
       if (residencyDurationMet) {
         successItems.unshift(
-          <div key="duration" className={`flex flex-col gap-1 p-5 mb-4 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-emerald-50/30 border-emerald-100 dark:bg-emerald-900/10 dark:border-emerald-900/30'}`}>
+          <div key="duration" className={`flex flex-col gap-1 p-5 mb-4 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-emerald-50/50 border-emerald-100 dark:bg-emerald-900/10 dark:border-emerald-900/30'}`}>
             <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-400 font-black uppercase tracking-[0.15em] text-[10px]">
-              <Check className="w-4 h-4" />
-              Residency Duration Met
+              <MapPin className="w-4 h-4" />
+              Confirmed: Residency Duration
             </div>
-            <span className="text-sm text-emerald-900 dark:text-emerald-200 font-bold block">
+            <span className="text-sm text-emerald-900 dark:text-emerald-200 font-bold block mt-1">
               You have lived in {selectedStateData?.name} for at least {selectedStateData?.residencyDays} days.
+            </span>
+          </div>
+        );
+      } else {
+        // Even if duration wasn't explicitly asked (0 days), confirm residency generally
+        successItems.unshift(
+          <div key="residency_general" className={`flex flex-col gap-1 p-5 mb-4 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-emerald-50/50 border-emerald-100 dark:bg-emerald-900/10 dark:border-emerald-900/30'}`}>
+            <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-400 font-black uppercase tracking-[0.15em] text-[10px]">
+              <Home className="w-4 h-4" />
+              Confirmed: Residency Established
+            </div>
+            <span className="text-sm text-emerald-900 dark:text-emerald-200 font-bold block mt-1">
+              You have a fixed habitation in {selectedStateData?.name}.
             </span>
           </div>
         );
@@ -486,6 +504,20 @@ const App: React.FC = () => {
           <>
             {state.currentStep === -1 && (
               <div className="p-6 md:p-16">
+                <div className={`p-6 md:p-8 mb-12 rounded-[2.5rem] border shadow-xl ${state.accessibility.isDarkMode ? 'bg-blue-900/30 border-blue-800' : 'bg-blue-50 border-blue-100'}`}>
+                  <div className="flex items-start gap-5">
+                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${state.accessibility.isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-900 text-white'}`}>
+                      <Info className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className={`text-sm font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-blue-900'}`}>Why This Matters</h3>
+                      <p className={`text-xs leading-relaxed ${state.accessibility.isDarkMode ? 'text-blue-100' : 'text-blue-900/80'} ${largeTextClass}`}>
+                        The <strong>SAVE Act (H.R.8281)</strong> requires individuals to provide documentary proof of U.S. citizenship to register to vote in federal elections. This tool helps you verify if you have the correct documents ready for 2026.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="text-center mb-10">
                   <div className={`inline-flex items-center justify-center w-28 h-28 rounded-[2.5rem] rotate-3 mb-8 shadow-inner ring-1 transition-transform hover:rotate-0 duration-700 ${state.accessibility.isDarkMode ? 'bg-blue-900/30 text-blue-400 ring-blue-900/50' : 'bg-blue-50 text-blue-900 ring-blue-100/50'}`}>
                     <Scale className="w-14 h-14 -rotate-3" />
@@ -548,11 +580,7 @@ const App: React.FC = () => {
                   >
                     {activeQuestions[state.currentStep].text}
                   </h3>
-                  {state.isPlainEnglishMode && (
-                    <div className={`p-6 md:p-8 mb-12 rounded-[2.5rem] relative overflow-hidden shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-slate-800 ring-slate-700 shadow-blue-900/20' : 'bg-slate-900 ring-white/10 text-white shadow-blue-900/10'}`}>
-                      <p className={`text-sm font-bold leading-loose ${state.accessibility.isDarkMode ? 'text-slate-200' : 'text-slate-200'} ${largeTextClass}`}>{activeQuestions[state.currentStep].plainEnglish}</p>
-                    </div>
-                  )}
+
                   {activeQuestions[state.currentStep].id === 'dpoc' && (
                     <div className={`p-6 md:p-6 mb-8 rounded-[2rem] border ${state.accessibility.isDarkMode ? 'bg-slate-800/50 border-slate-700' : 'bg-blue-50/50 border-blue-100'}`}>
                       <h4
@@ -604,49 +632,67 @@ const App: React.FC = () => {
                     <div>
                       <div className="text-center mb-14">
                         <div className="inline-flex items-center justify-center mb-10">
-                          {status === 'Likely Eligible' && <div className={`p-6 md:p-8 rounded-[2.5rem] shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-emerald-900/20 ring-emerald-900/50 shadow-emerald-900/30' : 'bg-emerald-50 ring-emerald-100 shadow-emerald-500/10'}`}><CheckCircle2 className="w-24 h-24 text-emerald-500" /></div>}
+                          {status === 'Likely Eligible' && <div className={`p-8 rounded-full shadow-2xl ring-4 ${state.accessibility.isDarkMode ? 'bg-emerald-900/20 ring-emerald-900/50 shadow-emerald-900/30' : 'bg-emerald-50 ring-emerald-100 shadow-emerald-500/20'}`}><CheckCircle2 className="w-32 h-32 text-emerald-600 dark:text-emerald-500" /></div>}
                           {status === 'Action Required' && <div className={`p-6 md:p-8 rounded-[2.5rem] shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-amber-900/20 ring-amber-900/50 shadow-amber-900/30' : 'bg-amber-50 ring-amber-100 shadow-amber-500/10'}`}><AlertTriangle className="w-24 h-24 text-amber-500" /></div>}
                           {status === 'Ineligible' && <div className={`p-6 md:p-8 rounded-[2.5rem] shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-red-900/20 ring-red-900/50 shadow-red-900/30' : 'bg-red-50 ring-red-100 shadow-red-500/10'}`}><XCircle className="w-24 h-24 text-red-500" /></div>}
                         </div>
-                        <h2 className={`text-6xl font-black uppercase tracking-tighter leading-none mb-4 ${status === 'Likely Eligible' ? 'text-emerald-600' : status === 'Action Required' ? 'text-amber-600' : 'text-red-600'}`}>{status}</h2>
-                        <div className="inline-block px-4 py-2 bg-slate-900 dark:bg-blue-600 text-white rounded-[1rem] text-[10px] font-black uppercase tracking-[0.2em] shadow-lg">Jurisdiction: {selectedStateData?.name}</div>
+                        <h2 className={`text-5xl md:text-6xl font-black uppercase tracking-tighter leading-none mb-4 ${status === 'Likely Eligible' ? 'text-emerald-700 dark:text-emerald-400' : status === 'Action Required' ? 'text-amber-600' : 'text-red-600'}`}>{status}</h2>
+                        <div className="inline-block px-6 py-2 bg-slate-900 dark:bg-blue-600 text-white rounded-full text-xs font-black uppercase tracking-[0.2em] shadow-lg">Jurisdiction: {selectedStateData?.name}</div>
                       </div>
 
-                      <div className={`rounded-[3rem] p-10 mb-10 border shadow-inner ring-1 ${state.accessibility.isDarkMode ? 'bg-slate-800/40 border-slate-700 ring-slate-900/50' : 'bg-slate-50 border-slate-100 ring-slate-900/5'}`}>
-                        <ul className="space-y-12">
-                          {checklist.map((item, i) => (
-                            <li key={i} className="flex gap-8 items-start">
-                              <div className="shrink-0"><div className={`w-10 h-10 rounded-2xl border flex items-center justify-center shadow-xl font-black text-sm ${state.accessibility.isDarkMode ? 'bg-slate-900 border-slate-700 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>{i + 1}</div></div>
-                              <div className={`leading-relaxed pt-1 flex-grow ${state.accessibility.isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>{item}</div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="bg-slate-900 dark:bg-blue-900/30 p-8 rounded-[2.5rem] mb-14 shadow-2xl relative overflow-hidden ring-1 dark:ring-blue-900/50">
-                        <div className="flex items-start gap-5 relative z-10">
-                          <div className="w-12 h-12 bg-white/10 dark:bg-blue-600/30 rounded-2xl flex items-center justify-center shrink-0">
-                            <BookOpen className="w-6 h-6 text-blue-400" />
+                      <div className={`rounded-[3rem] p-8 mb-10 border shadow-inner ring-1 ${state.accessibility.isDarkMode ? 'bg-slate-800/40 border-slate-700 ring-slate-900/50' : 'bg-slate-50 border-slate-100 ring-slate-900/5'}`}>
+                        {status === 'Likely Eligible' ? (
+                          <div className="space-y-4">
+                            {checklist.map((item, i) => (
+                              <div key={i}>{item}</div>
+                            ))}
                           </div>
-                          <div className="space-y-3">
-                            <h4 className="text-white font-black uppercase tracking-[0.2em] text-[10px]">Legal Verification Basis</h4>
-                            <p className="text-slate-200 dark:text-blue-100 text-xs leading-relaxed">
-                              This guidance is derived directly from the <strong>H.R.8281 - SAVE Act</strong>.
-                            </p>
+                        ) : (
+                          <ul className="space-y-12">
+                            {checklist.map((item, i) => (
+                              <li key={i} className="flex gap-8 items-start">
+                                <div className="shrink-0"><div className={`w-10 h-10 rounded-2xl border flex items-center justify-center shadow-xl font-black text-sm ${state.accessibility.isDarkMode ? 'bg-slate-900 border-slate-700 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>{i + 1}</div></div>
+                                <div className={`leading-relaxed pt-1 flex-grow ${state.accessibility.isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>{item}</div>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+
+                      <div className="mb-10">
+                        <details className="group">
+                          <summary className="list-none cursor-pointer">
+                            <div className="flex items-center justify-between p-6 bg-slate-100 dark:bg-blue-900/20 rounded-[2rem] hover:bg-slate-200 dark:hover:bg-blue-900/30 transition-colors">
+                              <div className="flex items-center gap-3 text-slate-600 dark:text-blue-300 font-bold uppercase tracking-widest text-[10px]">
+                                <BookOpen className="w-4 h-4" />
+                                Legal Verification Basis
+                              </div>
+                              <ChevronRight className="w-4 h-4 text-slate-400 transition-transform group-open:rotate-90" />
+                            </div>
+                          </summary>
+                          <div className="p-6 pt-4 text-xs leading-relaxed text-slate-600 dark:text-slate-400 space-y-4 animate-in fade-in slide-in-from-top-2">
+                            <p>This guidance is derived directly from the <strong>H.R.8281 - SAVE Act</strong>. It strictly adheres to federal requirements for documentary proof of citizenship.</p>
                             <button
                               onClick={() => setView('statutes')}
-                              className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-black uppercase tracking-widest text-[10px] transition-colors"
+                              className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline font-bold uppercase tracking-wider text-[10px]"
                             >
-                              More Legal Info <ExternalLink className="w-3 h-3" />
+                              Read Full Statute Analysis <ExternalLink className="w-3 h-3" />
                             </button>
+                            <div className="pt-4 border-t border-slate-200 dark:border-slate-700 flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-slate-400">
+                              <ShieldCheck className="w-3 h-3" />
+                              Privacy Shield: Zero Data Saved
+                            </div>
                           </div>
-                        </div>
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-[60px] rounded-full" />
+                        </details>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        <button onClick={() => window.open('https://vote.gov', '_blank')} className="flex items-center justify-center gap-3 bg-blue-900 dark:bg-blue-600 text-white font-black uppercase tracking-[0.2em] py-7 rounded-[2rem] hover:bg-blue-800 dark:hover:bg-blue-500 transition-all shadow-[0_20px_40px_-10px_rgba(30,58,138,0.4)] text-[11px] active:scale-95 group">Official Site<ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></button>
-                        <button onClick={reset} className={`flex items-center justify-center gap-3 font-black uppercase tracking-[0.2em] py-7 rounded-[2rem] border-2 transition-all text-[11px] active:scale-95 shadow-sm ${state.accessibility.isDarkMode ? 'bg-slate-800 text-white border-slate-700 hover:bg-slate-700' : 'bg-white text-slate-900 border-slate-100 hover:bg-slate-50'}`}><RotateCcw className="w-4 h-4" />Start Over</button>
+                      <div className="flex flex-col gap-4">
+                        <button onClick={() => window.open('https://vote.gov', '_blank')} className="w-full flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-black uppercase tracking-[0.2em] py-6 rounded-[2rem] transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:scale-95 text-xs">
+                          Register to Vote (Vote.gov) <ExternalLink className="w-4 h-4" />
+                        </button>
+                        <button onClick={reset} className="w-full flex items-center justify-center gap-3 bg-transparent text-slate-500 dark:text-slate-400 font-bold uppercase tracking-[0.2em] py-5 rounded-[2rem] hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 active:scale-95 text-[10px]">
+                          <RotateCcw className="w-3 h-3" /> Check Another Person
+                        </button>
                       </div>
                     </div>
                   );
@@ -657,6 +703,7 @@ const App: React.FC = () => {
         );
     }
   };
+
 
   return (
     <div className={`min-h-screen flex flex-col selection:bg-blue-100 selection:text-blue-900 antialiased font-['Inter'] transition-colors duration-300 ${state.accessibility.isDarkMode ? 'bg-slate-950 text-white' : 'bg-slate-50/50 text-slate-900'} ${state.accessibility.isHighContrast ? 'contrast-125' : ''}`}>
@@ -677,17 +724,6 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => setState(prev => ({ ...prev, isPlainEnglishMode: !prev.isPlainEnglishMode }))}
-              aria-pressed={state.isPlainEnglishMode}
-              className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-[10px] font-black uppercase tracking-[0.15em] transition-all active:scale-95 ${state.isPlainEnglishMode
-                ? 'bg-blue-600 text-white shadow-[0_10px_20px_-5px_rgba(37,99,235,0.4)] ring-2 ring-white/10'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
-                }`}
-            >
-              <Info className="w-4 h-4" />
-              <span className="hidden md:inline">Plain English {state.isPlainEnglishMode ? 'ON' : 'OFF'}</span>
-            </button>
             <button
               onClick={() => setShowSettings(true)}
               className="p-3 bg-slate-800 text-slate-300 rounded-2xl hover:bg-slate-700 transition-colors border border-slate-700 shadow-sm"
@@ -804,19 +840,25 @@ const App: React.FC = () => {
         </div>
 
         {/* Bottom Row */}
-        <div className="max-w-6xl mx-auto mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col items-center gap-4">
+        <div className="max-w-6xl mx-auto mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium text-center">
             © 2026 US Civic Action. Not affiliated with any state or federal government.
           </p>
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-bold transition-all ${state.accessibility.isDarkMode ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}
-          >
-            <GitBranch className="w-3 h-3" />
-            Open Source Project
-          </a>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 text-[9px] font-black uppercase tracking-widest border border-emerald-100 dark:border-emerald-900/30">
+              <WifiOff className="w-3 h-3" />
+              Works Offline
+            </div>
+            <a
+              href="https://github.com/us-civic-action/SAVE_ACT-Verifier"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-bold transition-all ${state.accessibility.isDarkMode ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}
+            >
+              <GitBranch className="w-3 h-3" />
+              Open Source Project
+            </a>
+          </div>
         </div>
       </footer>
     </div>

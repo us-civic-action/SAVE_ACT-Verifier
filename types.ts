@@ -26,7 +26,6 @@ export interface Question {
 export interface AppState {
   currentStep: number;
   answers: Record<string, any>;
-  isPlainEnglishMode: boolean;
   selectedState: string | null;
   view: AppView;
   accessibility: AccessibilitySettings;
