@@ -32,7 +32,9 @@ import {
   Eye,
   X,
   Coffee,
-  GitBranch
+  GitBranch,
+  Database,
+  FileCode
 } from 'lucide-react';
 import { AppState, EligibilityStatus, AppView, AccessibilitySettings } from './types';
 import { QUESTIONS, STATES, ACCEPTABLE_DPOC, BRIDGING_DOCUMENTS, RESIDENCY_EXAMPLES, SAVE_ACT_BILL_URL } from './constants';
@@ -373,10 +375,42 @@ const App: React.FC = () => {
                 className={`text-3xl font-black tracking-tighter uppercase ${largeTextClass}`}
                 style={{ color: state.accessibility.isDarkMode ? '#ffffff' : '#000000' }}
               >
-                Legal Basis
+                Transparency & Legal
               </h2>
             </div>
-            <div className="space-y-8">
+
+            <div className="grid grid-cols-1 gap-6 mb-12">
+              <div className={`p-8 rounded-[2.5rem] border ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-100 shadow-xl'}`}>
+                <div className="flex items-start gap-5">
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${state.accessibility.isDarkMode ? 'bg-blue-900/50 text-blue-400' : 'bg-blue-50 text-blue-600'}`}>
+                    <Database className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className={`text-sm font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'}`}>Zero Data Retention</h3>
+                    <p className={`text-xs leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-300' : 'text-slate-600'} ${largeTextClass}`}>
+                      We believe civic tools should be private by design. <strong>We save absolutely no data.</strong> Everything runs locally in your browser.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className={`p-8 rounded-[2.5rem] border ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-100 shadow-xl'}`}>
+                <div className="flex items-start gap-5">
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${state.accessibility.isDarkMode ? 'bg-emerald-900/50 text-emerald-400' : 'bg-emerald-50 text-emerald-600'}`}>
+                    <FileCode className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className={`text-sm font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'}`}>Minimalist Code</h3>
+                    <p className={`text-xs leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-300' : 'text-slate-600'} ${largeTextClass}`}>
+                      This site is so tiny it could fit on a milk carton. No bloat, no tracking scripts, just the logic you need.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <h3 className={`text-xs font-black uppercase tracking-widest ${state.accessibility.isDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>Legal Basis</h3>
               <p
                 className={`leading-relaxed ${largeTextClass}`}
                 style={{ color: state.accessibility.isDarkMode ? '#f1f5f9' : '#0f172a' }}
@@ -394,6 +428,7 @@ const App: React.FC = () => {
                 </a>
               </div>
             </div>
+
             <button onClick={() => setView('checker')} className="mt-12 flex items-center gap-3 bg-slate-900 dark:bg-blue-600 text-white font-black uppercase tracking-[0.2em] px-8 py-5 rounded-[2rem] hover:bg-slate-800 transition-all shadow-xl text-[10px] active:scale-95">
               <ArrowLeft className="w-4 h-4" /> Return to Checker
             </button>
