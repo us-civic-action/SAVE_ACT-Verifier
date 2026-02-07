@@ -1,0 +1,5 @@
+{
+  "name": "Am I Eligible?",
+  "description": "A civic tool designed to help users determine their voter eligibility based on the 2026 SAVE Act requirements, featuring state-specific logic and documentary proof guidance.",
+  "requestFramePermissions": []
+}
