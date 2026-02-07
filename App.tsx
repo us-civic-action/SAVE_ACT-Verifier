@@ -379,8 +379,22 @@ const App: React.FC = () => {
               </h2>
             </div>
 
+            <div className={`p-6 md:p-8 mb-12 rounded-[2.5rem] border shadow-xl ${state.accessibility.isDarkMode ? 'bg-blue-900/30 border-blue-800' : 'bg-blue-50 border-blue-100'}`}>
+              <div className="flex items-start gap-5">
+                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${state.accessibility.isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-900 text-white'}`}>
+                  <Info className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className={`text-sm font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-blue-900'}`}>Why This Matters</h3>
+                  <p className={`text-xs leading-relaxed ${state.accessibility.isDarkMode ? 'text-blue-100' : 'text-blue-900/80'} ${largeTextClass}`}>
+                    The <strong>SAVE Act (H.R.8281)</strong> requires individuals to provide documentary proof of U.S. citizenship to register to vote in federal elections. This tool helps you verify if you have the correct documents ready for 2026.
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 gap-6 mb-12">
-              <div className={`p-8 rounded-[2.5rem] border ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-100 shadow-xl'}`}>
+              <div className={`p-6 md:p-8 rounded-[2.5rem] border ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-100 shadow-xl'}`}>
                 <div className="flex items-start gap-5">
                   <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${state.accessibility.isDarkMode ? 'bg-blue-900/50 text-blue-400' : 'bg-blue-50 text-blue-600'}`}>
                     <Database className="w-6 h-6" />
@@ -394,7 +408,7 @@ const App: React.FC = () => {
                 </div>
               </div>
 
-              <div className={`p-8 rounded-[2.5rem] border ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-100 shadow-xl'}`}>
+              <div className={`p-6 md:p-8 rounded-[2.5rem] border ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-100 shadow-xl'}`}>
                 <div className="flex items-start gap-5">
                   <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${state.accessibility.isDarkMode ? 'bg-emerald-900/50 text-emerald-400' : 'bg-emerald-50 text-emerald-600'}`}>
                     <FileCode className="w-6 h-6" />
@@ -486,7 +500,7 @@ const App: React.FC = () => {
                     className={`mt-4 text-lg font-medium ${largeTextClass}`}
                     style={{ color: state.accessibility.isDarkMode ? '#e2e8f0' : '#1e293b' }}
                   >
-                    Requirements vary by state. Select yours to begin the <span className="text-blue-900 dark:text-blue-400 font-bold">SAVE Act</span> verification.
+                    Requirements vary by state. Select yours to begin the <button onClick={() => setView('statutes')} className="text-blue-900 dark:text-blue-400 font-bold hover:underline decoration-2 decoration-blue-900/30 dark:decoration-blue-400/30 underline-offset-2 transition-all">SAVE Act</button> verification.
                   </p>
                 </div>
 
