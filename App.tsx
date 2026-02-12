@@ -573,15 +573,6 @@ const App: React.FC = () => {
                 </div>
 
                 <div className="text-center mb-10">
-                  <div className={`inline-flex items-center justify-center w-28 h-28 rounded-[2.5rem] rotate-3 mb-8 shadow-inner ring-1 transition-transform hover:rotate-0 duration-700 ${state.accessibility.isDarkMode ? 'bg-blue-900/30 text-blue-400 ring-blue-900/50' : 'bg-blue-50 text-blue-900 ring-blue-100/50'}`}>
-                    <Scale className="w-14 h-14 -rotate-3" />
-                  </div>
-                  <h2
-                    className={`text-4xl font-black leading-[1.1] tracking-tighter uppercase ${largeTextClass}`}
-                    style={{ color: state.accessibility.isDarkMode ? '#ffffff' : '#000000' }}
-                  >
-                    Check Your 2026 Eligibility
-                  </h2>
                   <p
                     className={`mt-4 text-lg font-medium ${largeTextClass}`}
                     style={{ color: state.accessibility.isDarkMode ? '#e2e8f0' : '#1e293b' }}
