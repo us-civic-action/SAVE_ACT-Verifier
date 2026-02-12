@@ -784,49 +784,55 @@ const App: React.FC = () => {
 
   return (
     <div className={`min-h-screen flex flex-col selection:bg-blue-100 selection:text-blue-900 antialiased font-['Inter'] transition-colors duration-300 ${state.accessibility.isDarkMode ? 'bg-slate-950 text-white' : 'bg-slate-50/50 text-slate-900'} ${state.accessibility.isHighContrast ? 'contrast-125' : ''}`}>
-      <header className="bg-slate-900 text-white py-4 px-4 shadow-xl sticky top-0 z-50 border-b border-white/5">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setShowSidebar(true)}
-              className="p-2 -ml-2 hover:bg-slate-800 rounded-xl transition-colors md:hidden"
-              aria-label="Open Menu"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
-            <div className="flex items-center gap-3 cursor-pointer group" onClick={reset}>
-              <div className="group-hover:scale-105 transition-transform duration-300">
-                <img src={civicLogo} alt="Logo" className="w-10 h-10 object-contain" />
-              </div>
-              <div>
-                <h1
-                  className="text-lg font-black tracking-tighter leading-none"
-                  style={{ color: '#ffffff' }}
-                >
-                  US CIVIC ACTION
-                </h1>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mt-0.5 md:hidden">Project: SAVE Act Verifier</p>
-              </div>
-            </div>
-          </div>
+      <header className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 sticky top-0 z-[100] transition-colors">
+        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
 
+          {/* Logo & Brand */}
+          <a href="https://nh-civic-app.vercel.app/" className="flex items-center gap-3 group">
+            <div className="relative h-14 w-auto aspect-[3/2] overflow-hidden transition-transform group-hover:scale-105">
+              <img
+                src={civicLogo}
+                alt="US Civic Action Logo"
+                className="h-full w-full object-contain"
+              />
+            </div>
+            <div>
+              <h1 className="text-lg font-black text-granite-900 dark:text-white tracking-tight leading-none group-hover:text-nh-green-800 dark:group-hover:text-nh-green-400 transition-colors hidden md:block uppercase">
+                US CIVIC <span className="text-nh-green-700 dark:text-nh-green-500">ACTION</span>
+              </h1>
+              <p className="text-xs font-bold text-granite-500 dark:text-slate-400 tracking-wide uppercase hidden md:block">
+                The People&apos;s Voice
+              </p>
+            </div>
+          </a>
+
+          {/* Mobile Menu Button - Left of Nav on Mobile */}
+          <button
+            onClick={() => setShowSidebar(true)}
+            className="p-2 -ml-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-xl transition-colors md:hidden"
+            aria-label="Open Menu"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-4 ml-8 flex-grow justify-end">
+          <nav className="flex items-center gap-4">
+            {/* Desktop Links */}
             <a
               href="https://us-civic-action.github.io/SAVE_ACT-Verifier/"
-              className="text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors"
+              className="hidden md:block text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors"
             >
               Home
             </a>
             <a
               href="https://nh-civic-app.vercel.app/transparency"
-              className="text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors"
+              className="hidden md:block text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors"
             >
               Transparency
             </a>
 
-            <div className="relative group/menu py-4">
+            {/* Projects Dropdown - Desktop Only */}
+            <div className="hidden md:block relative group/menu py-4">
               <button className="text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1">
                 Projects <ChevronDown className="w-4 h-4" />
               </button>
@@ -846,18 +852,33 @@ const App: React.FC = () => {
                 </div>
               </div>
             </div>
-          </nav>
 
+            <button
+              onClick={toggleAccessibility('isDarkMode')}
+              className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full transition-colors"
+              aria-label="Toggle Theme"
+            >
+              {state.accessibility.isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
 
-          <div className="flex items-center gap-2">
+            <a
+              href="https://buy.stripe.com/cNi9ATgtb3vv9f6g1Sawo02"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:flex text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 py-2.5 px-4 rounded-full transition-all shadow-md hover:shadow-lg items-center gap-2 transform hover:-translate-y-0.5"
+            >
+              <Coffee className="w-4 h-4" /> Support
+            </a>
+            {/* Show settings on mobile header? kept logic similar to original but adapting to new layout */}
             <button
               onClick={() => setShowSettings(true)}
-              className="p-2 hover:bg-slate-800 text-slate-300 rounded-xl transition-colors"
+              className="md:hidden p-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-xl transition-colors"
               aria-label="Accessibility Settings"
             >
               <Settings className="w-5 h-5" />
             </button>
-          </div>
+
+          </nav>
         </div>
       </header>
 
