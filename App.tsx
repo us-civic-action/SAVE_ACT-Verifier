@@ -537,6 +537,27 @@ const App: React.FC = () => {
           <>
             {state.currentStep === -1 && (
               <div className="p-6 md:p-16">
+
+                {/* Hero Section */}
+                <div className="flex flex-col items-center justify-center text-center mb-12 animate-in fade-in zoom-in duration-700">
+                  <div className="w-32 h-32 md:w-40 md:h-40 mb-6 relative hover:scale-105 transition-transform duration-500">
+                    <img
+                      src={civicLogo}
+                      alt="US Civic Action Logo"
+                      className="w-full h-full object-contain drop-shadow-2xl"
+                    />
+                  </div>
+                  <h1
+                    className={`text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'}`}
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    Save Act Verifier
+                  </h1>
+                  <p className={`text-lg md:text-xl font-medium tracking-wide ${state.accessibility.isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+                    Understand the impact. Navigate the requirements.
+                  </p>
+                </div>
+
                 <div className={`p-6 md:p-8 mb-12 rounded-[2.5rem] border shadow-xl ${state.accessibility.isDarkMode ? 'bg-blue-900/30 border-blue-800' : 'bg-blue-50 border-blue-100'}`}>
                   <div className="flex items-start gap-5">
                     <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${state.accessibility.isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-900 text-white'}`}>
@@ -597,7 +618,8 @@ const App: React.FC = () => {
                   </div>
                 </div>
               </div>
-            )}
+            )
+            }
 
             {state.currentStep >= 0 && state.currentStep < activeQuestions.length && (
               <div className="p-6 md:p-16">

@@ -71,7 +71,7 @@ The application is deployed automatically to **GitHub Pages** whenever changes a
 
 Styles are managed differently than a standard Tailwind setup to allow for easy "drop-in" usage without a complex build step for CSS.
 
-* **Configuration:** The Tailwind configuration is **inline** within `index.html` (script tag).
+* **Configuration:** The Tailwind configuration is **inline** within `index.html` (script tag).cd ../
   * *Why?* Allows for rapid prototyping and runtime adjustments without a PostCSS build step.
 * **Dark Mode:** Implemented via the `class` strategy. The `App.tsx` component toggles the `.dark` class on the `<html>` document element based on user preference.
 * **Fonts:** Uses `Inter` via Google Fonts CDN.
