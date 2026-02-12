@@ -854,7 +854,7 @@ const App: React.FC = () => {
             </div>
 
             <button
-              onClick={toggleAccessibility('isDarkMode')}
+              onClick={() => toggleAccessibility('isDarkMode')}
               className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full transition-colors"
               aria-label="Toggle Theme"
             >
