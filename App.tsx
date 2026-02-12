@@ -810,26 +810,41 @@ const App: React.FC = () => {
             </div>
           </div>
 
+
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 ml-8 flex-grow">
+          <nav className="hidden md:flex items-center gap-4 ml-8 flex-grow justify-end">
             <a
-              href="https://nh-civic-app.vercel.app/"
-              className="text-xs font-bold uppercase tracking-widest text-slate-300 hover:text-white transition-colors flex items-center gap-2"
+              href="https://us-civic-action.github.io/SAVE_ACT-Verifier/"
+              className="text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors"
             >
-              <Home className="w-4 h-4" /> Home
+              Home
             </a>
             <a
-              href="https://github.com/us-civic-action/SAVE_ACT-Verifier"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-bold uppercase tracking-widest text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-2"
+              href="https://nh-civic-app.vercel.app/transparency"
+              className="text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors"
             >
-              <Github className="w-4 h-4" /> Save Act Verifier { /* Using Github icon if available, implied by 'Project Page' request */}
+              Transparency
             </a>
-            <div className="relative group/menu">
-              <button className="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-1 cursor-not-allowed opacity-70">
-                Future Tools <ChevronDown className="w-3 h-3" />
+
+            <div className="relative group/menu py-4">
+              <button className="text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1">
+                Projects <ChevronDown className="w-4 h-4" />
               </button>
+              <div className="absolute top-full right-0 w-48 pt-2 opacity-0 invisible group-hover/menu:opacity-100 group-hover/menu:visible transition-all duration-200 z-50 transform translate-y-2 group-hover/menu:translate-y-0">
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl overflow-hidden p-1">
+                  <a
+                    href="https://us-civic-action.github.io/SAVE_ACT-Verifier/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-4 py-3 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-black dark:hover:text-white rounded-lg transition-colors"
+                  >
+                    <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" /> Save Act Verifier
+                  </a>
+                  <div className="px-4 py-3 text-xs font-bold text-slate-400 cursor-not-allowed flex items-center gap-3">
+                    <LayoutGrid className="w-4 h-4" /> Future Tools
+                  </div>
+                </div>
+              </div>
             </div>
           </nav>
 
