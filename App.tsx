@@ -839,11 +839,11 @@ const App: React.FC = () => {
               <div className="px-3 py-2 text-[10px] uppercase font-black tracking-widest text-slate-500 dark:text-slate-400">
                 Apps
               </div>
-              <button onClick={() => { window.location.href = '/'; setShowSidebar(false); }} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ${state.accessibility.isDarkMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-slate-50 text-slate-900 hover:bg-slate-100'}`}>
+              <button onClick={() => { window.location.href = 'https://nh-civic-app.vercel.app/'; setShowSidebar(false); }} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ${state.accessibility.isDarkMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-slate-50 text-slate-900 hover:bg-slate-100'}`}>
                 <Globe className="w-5 h-5 text-blue-500" />
                 <div>
                   <div className="text-sm font-bold">Main Site</div>
-                  <div className="text-[10px] opacity-70">us-civic-action.github.io</div>
+                  <div className="text-[10px] opacity-70">nh-civic-app.vercel.app</div>
                 </div>
               </button>
               <button onClick={() => setShowSidebar(false)} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ring-2 ring-blue-500 ${state.accessibility.isDarkMode ? 'bg-blue-900/20 text-blue-400' : 'bg-blue-50 text-blue-700'}`}>
