@@ -31,6 +31,7 @@ self.addEventListener('activate', (event) => {
 });
 
 // Fetch event: Network first, fallback to cache (Stale-while-revalidate strategy)
+// Fetch event: Network first, fallback to cache (Stale-while-revalidate strategy)
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         fetch(event.request)
@@ -42,9 +43,14 @@ self.addEventListener('fetch', (event) => {
                 });
                 return response;
             })
-            .catch(() => {
+            .catch(async () => {
                 // Fallback to cache if network fails
-                return caches.match(event.request);
+                const cachedResponse = await caches.match(event.request);
+                if (cachedResponse) {
+                    return cachedResponse;
+                }
+                // Return a fallback response for offline misses
+                return new Response('Offline: Resource not found', { status: 404, statusText: 'Not Found' });
             })
     );
 });

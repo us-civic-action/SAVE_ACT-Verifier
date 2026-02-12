@@ -1,5 +1,6 @@
+declare module '*.png';
 
-export type EligibilityStatus = 'Likely Eligible' | 'Action Required' | 'Ineligible';
+export type EligibilityStatus = 'Likely Eligible' | 'Action Required' | 'Ineligible' | 'Unknown';
 export type AppView = 'checker' | 'privacy' | 'statutes' | 'contact';
 
 export interface AccessibilitySettings {

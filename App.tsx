@@ -1,3 +1,4 @@
+﻿declare module "*.png";
 import React, { useState, useMemo, useEffect } from 'react';
 import {
   ShieldCheck,
@@ -34,10 +35,14 @@ import {
   X,
   Coffee,
   Database,
-  FileCode
+  FileCode,
+  Menu,
+  Globe,
+  LayoutGrid
 } from 'lucide-react';
 import { AppState, EligibilityStatus, AppView, AccessibilitySettings } from './types';
 import { QUESTIONS, STATES, ACCEPTABLE_DPOC, BRIDGING_DOCUMENTS, RESIDENCY_EXAMPLES, SAVE_ACT_BILL_URL } from './constants';
+import civicLogo from './assets/civic_logo.png';
 
 const App: React.FC = () => {
   // Persistence initialization
@@ -56,6 +61,7 @@ const App: React.FC = () => {
 
   const [stateSearch, setStateSearch] = useState('');
   const [showSettings, setShowSettings] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('accessibility_settings', JSON.stringify(state.accessibility));
@@ -430,7 +436,7 @@ const App: React.FC = () => {
                 <div>
                   <h3 className={`text-sm font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-blue-900'}`}>Why This Matters</h3>
                   <p className={`text-xs leading-relaxed ${state.accessibility.isDarkMode ? 'text-blue-100' : 'text-blue-900/80'} ${largeTextClass}`}>
-                    The <strong>SAVE Act (H.R.8281)</strong> requires individuals to provide documentary proof of U.S. citizenship to register to vote in federal elections. This tool helps you verify if you have the correct documents ready for 2026.
+                    The <strong>SAVE Act (H.R.8281)</strong> has passed the House and is currently in the Senate. This tool reflects the requirements as they are written in the proposed law, helping you verify if you have the correct documents ready for 2026.
                   </p>
                 </div>
               </div>
@@ -537,7 +543,7 @@ const App: React.FC = () => {
                     <div>
                       <h3 className={`text-sm font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-blue-900'}`}>Why This Matters</h3>
                       <p className={`text-xs leading-relaxed ${state.accessibility.isDarkMode ? 'text-blue-100' : 'text-blue-900/80'} ${largeTextClass}`}>
-                        The <strong>SAVE Act (H.R.8281)</strong> requires individuals to provide documentary proof of U.S. citizenship to register to vote in federal elections. This tool helps you verify if you have the correct documents ready for 2026.
+                        The <strong>SAVE Act (H.R.8281)</strong> has passed the House and is currently in the Senate. This tool reflects the requirements as they are written in the proposed law, helping you verify if you have the correct documents ready for 2026.
                       </p>
                     </div>
                   </div>
@@ -551,13 +557,13 @@ const App: React.FC = () => {
                     className={`text-4xl font-black leading-[1.1] tracking-tighter uppercase ${largeTextClass}`}
                     style={{ color: state.accessibility.isDarkMode ? '#ffffff' : '#000000' }}
                   >
-                    State Registry
+                    Check Your 2026 Eligibility
                   </h2>
                   <p
                     className={`mt-4 text-lg font-medium ${largeTextClass}`}
                     style={{ color: state.accessibility.isDarkMode ? '#e2e8f0' : '#1e293b' }}
                   >
-                    Requirements vary by state. Select yours to begin the <button onClick={() => setView('statutes')} className="text-blue-900 dark:text-blue-400 font-bold hover:underline decoration-2 decoration-blue-900/30 dark:decoration-blue-400/30 underline-offset-2 transition-all">SAVE Act</button> verification.
+                    Requirements vary by state. Select yours to begin checking your eligibility.
                   </p>
                 </div>
 
@@ -776,26 +782,35 @@ const App: React.FC = () => {
 
   return (
     <div className={`min-h-screen flex flex-col selection:bg-blue-100 selection:text-blue-900 antialiased font-['Inter'] transition-colors duration-300 ${state.accessibility.isDarkMode ? 'bg-slate-950 text-white' : 'bg-slate-50/50 text-slate-900'} ${state.accessibility.isHighContrast ? 'contrast-125' : ''}`}>
-      <header className="bg-slate-900 text-white py-6 px-4 shadow-xl sticky top-0 z-50 border-b border-white/5">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3 cursor-pointer group" onClick={reset}>
-            <div className="bg-red-600 p-2.5 rounded-2xl shadow-lg shadow-red-900/40 group-hover:scale-105 transition-transform duration-300">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-            <div className="hidden sm:block">
-              <h1
-                className="text-xl font-black tracking-tighter leading-none"
-                style={{ color: '#ffffff' }}
-              >
-                AM I ELIGIBLE?
-              </h1>
-              <p className="text-[9px] text-slate-300 font-black uppercase tracking-[0.3em] mt-1.5 opacity-80">SAVE Act 2026 Verifier</p>
+      <header className="bg-slate-900 text-white py-4 px-4 shadow-xl sticky top-0 z-50 border-b border-white/5">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setShowSidebar(true)}
+              className="p-2 -ml-2 hover:bg-slate-800 rounded-xl transition-colors"
+              aria-label="Open Menu"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+            <div className="flex items-center gap-3 cursor-pointer group" onClick={reset}>
+              <div className="group-hover:scale-105 transition-transform duration-300">
+                <img src={civicLogo} alt="Logo" className="w-10 h-10 object-contain" />
+              </div>
+              <div>
+                <h1
+                  className="text-lg font-black tracking-tighter leading-none"
+                  style={{ color: '#ffffff' }}
+                >
+                  US CIVIC ACTION
+                </h1>
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mt-0.5">Project: SAVE Act Verifier</p>
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowSettings(true)}
-              className="p-3 bg-slate-800 text-slate-300 rounded-2xl hover:bg-slate-700 transition-colors border border-slate-700 shadow-sm"
+              className="p-2 hover:bg-slate-800 text-slate-300 rounded-xl transition-colors"
               aria-label="Accessibility Settings"
             >
               <Settings className="w-5 h-5" />
@@ -803,6 +818,68 @@ const App: React.FC = () => {
           </div>
         </div>
       </header>
+
+
+      {/* Sidebar Navigation */}
+      {showSidebar && (
+        <div className="fixed inset-0 z-[100] flex justify-start">
+          <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={() => setShowSidebar(false)} />
+          <div className={`relative w-full max-w-xs h-full shadow-2xl border-r p-6 animate-in slide-in-from-left duration-300 flex flex-col ${state.accessibility.isDarkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-3">
+                <img src={civicLogo} alt="Logo" className="w-8 h-8 object-contain" />
+                <span className="text-sm font-black uppercase tracking-tighter">US Civic Action</span>
+              </div>
+              <button onClick={() => setShowSidebar(false)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <nav className="space-y-2 flex-grow">
+              <div className="px-3 py-2 text-[10px] uppercase font-black tracking-widest text-slate-500 dark:text-slate-400">
+                Apps
+              </div>
+              <button onClick={() => { window.location.href = '/'; setShowSidebar(false); }} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ${state.accessibility.isDarkMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-slate-50 text-slate-900 hover:bg-slate-100'}`}>
+                <Globe className="w-5 h-5 text-blue-500" />
+                <div>
+                  <div className="text-sm font-bold">Main Site</div>
+                  <div className="text-[10px] opacity-70">us-civic-action.github.io</div>
+                </div>
+              </button>
+              <button onClick={() => setShowSidebar(false)} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ring-2 ring-blue-500 ${state.accessibility.isDarkMode ? 'bg-blue-900/20 text-blue-400' : 'bg-blue-50 text-blue-700'}`}>
+                <Scale className="w-5 h-5" />
+                <div>
+                  <div className="text-sm font-bold">SAVE Act Verifier</div>
+                  <div className="text-[10px] opacity-70">Current Tool</div>
+                </div>
+              </button>
+
+              <div className="px-3 py-2 mt-6 text-[10px] uppercase font-black tracking-widest text-slate-500 dark:text-slate-400">
+                More Tools
+              </div>
+              <button disabled className="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left opacity-50 cursor-not-allowed">
+                <LayoutGrid className="w-5 h-5" />
+                <div>
+                  <div className="text-sm font-bold">Future App 1</div>
+                  <div className="text-[10px]">Coming Soon</div>
+                </div>
+              </button>
+            </nav>
+
+            <div className="pt-6 border-t border-slate-200 dark:border-slate-800">
+              <a
+                href="https://github.com/us-civic-action"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-3 py-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white transition-colors"
+              >
+                <GitBranch className="w-4 h-4" />
+                GitHub Organization
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Accessibility Drawer */}
       {showSettings && (
@@ -911,7 +988,7 @@ const App: React.FC = () => {
         {/* Bottom Row */}
         <div className="max-w-6xl mx-auto mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium text-center">
-            © 2026 US Civic Action. Not affiliated with any state or federal government.
+            Â© 2026 US Civic Action. Not affiliated with any state or federal government.
           </p>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 text-[9px] font-black uppercase tracking-widest border border-emerald-100 dark:border-emerald-900/30">
