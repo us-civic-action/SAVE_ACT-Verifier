@@ -846,9 +846,14 @@ const App: React.FC = () => {
                   >
                     <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" /> Save Act Verifier
                   </a>
-                  <div className="px-4 py-3 text-xs font-bold text-slate-400 cursor-not-allowed flex items-center gap-3">
-                    <LayoutGrid className="w-4 h-4" /> Future Tools
-                  </div>
+                  <a
+                    href="https://nh-civic-app.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-4 py-3 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-black dark:hover:text-white rounded-lg transition-colors"
+                  >
+                    <Gavel className="w-4 h-4 text-blue-600 dark:text-blue-400" /> US Civic Action App
+                  </a>
                 </div>
               </div>
             </div>
