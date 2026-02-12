@@ -38,7 +38,9 @@ import {
   FileCode,
   Menu,
   Globe,
-  LayoutGrid
+  LayoutGrid,
+  Github,
+  ChevronDown
 } from 'lucide-react';
 import { AppState, EligibilityStatus, AppView, AccessibilitySettings } from './types';
 import { QUESTIONS, STATES, ACCEPTABLE_DPOC, BRIDGING_DOCUMENTS, RESIDENCY_EXAMPLES, SAVE_ACT_BILL_URL } from './constants';
@@ -787,7 +789,7 @@ const App: React.FC = () => {
           <div className="flex items-center gap-4">
             <button
               onClick={() => setShowSidebar(true)}
-              className="p-2 -ml-2 hover:bg-slate-800 rounded-xl transition-colors"
+              className="p-2 -ml-2 hover:bg-slate-800 rounded-xl transition-colors md:hidden"
               aria-label="Open Menu"
             >
               <Menu className="w-6 h-6" />
@@ -803,10 +805,35 @@ const App: React.FC = () => {
                 >
                   US CIVIC ACTION
                 </h1>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mt-0.5">Project: SAVE Act Verifier</p>
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mt-0.5 md:hidden">Project: SAVE Act Verifier</p>
               </div>
             </div>
           </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8 ml-8 flex-grow">
+            <a
+              href="https://nh-civic-app.vercel.app/"
+              className="text-xs font-bold uppercase tracking-widest text-slate-300 hover:text-white transition-colors flex items-center gap-2"
+            >
+              <Home className="w-4 h-4" /> Home
+            </a>
+            <a
+              href="https://github.com/us-civic-action/SAVE_ACT-Verifier"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-bold uppercase tracking-widest text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-2"
+            >
+              <Github className="w-4 h-4" /> Save Act Verifier { /* Using Github icon if available, implied by 'Project Page' request */}
+            </a>
+            <div className="relative group/menu">
+              <button className="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-1 cursor-not-allowed opacity-70">
+                Future Tools <ChevronDown className="w-3 h-3" />
+              </button>
+            </div>
+          </nav>
+
+
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowSettings(true)}
