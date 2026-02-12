@@ -869,25 +869,41 @@ const App: React.FC = () => {
               <button onClick={() => { window.location.href = 'https://nh-civic-app.vercel.app/'; setShowSidebar(false); }} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ${state.accessibility.isDarkMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-slate-50 text-slate-900 hover:bg-slate-100'}`}>
                 <Globe className="w-5 h-5 text-blue-500" />
                 <div>
-                  <div className="text-sm font-bold">Main Site</div>
-                  <div className="text-[10px] opacity-70">nh-civic-app.vercel.app</div>
+                  <div className="text-sm font-bold">Home</div>
+                  <div className="text-[10px] opacity-70">Main Hub</div>
                 </div>
               </button>
-              <button onClick={() => setShowSidebar(false)} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ring-2 ring-blue-500 ${state.accessibility.isDarkMode ? 'bg-blue-900/20 text-blue-400' : 'bg-blue-50 text-blue-700'}`}>
-                <Scale className="w-5 h-5" />
+
+              <button onClick={() => { window.location.href = 'https://nh-civic-app.vercel.app/legislate'; setShowSidebar(false); }} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ${state.accessibility.isDarkMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-slate-50 text-slate-900 hover:bg-slate-100'}`}>
+                <Gavel className="w-5 h-5 text-blue-500" />
                 <div>
-                  <div className="text-sm font-bold">SAVE Act Verifier</div>
-                  <div className="text-[10px] opacity-70">Current Tool</div>
+                  <div className="text-sm font-bold">Legislate</div>
+                  <div className="text-[10px] opacity-70">Drafting Tools</div>
+                </div>
+              </button>
+
+              <button onClick={() => { setView('statutes'); setShowSidebar(false); }} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ${state.accessibility.isDarkMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-slate-50 text-slate-900 hover:bg-slate-100'}`}>
+                <Eye className="w-5 h-5 text-blue-500" />
+                <div>
+                  <div className="text-sm font-bold">Transparency</div>
+                  <div className="text-[10px] opacity-70">View Statutes</div>
                 </div>
               </button>
 
               <div className="px-3 py-2 mt-6 text-[10px] uppercase font-black tracking-widest text-slate-500 dark:text-slate-400">
-                More Tools
+                Projects
               </div>
+              <button onClick={() => { window.open('https://github.com/us-civic-action/SAVE_ACT-Verifier', '_blank'); setShowSidebar(false); }} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ${state.accessibility.isDarkMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-slate-50 text-slate-900 hover:bg-slate-100'}`}>
+                <Github className="w-5 h-5" />
+                <div>
+                  <div className="text-sm font-bold">Save Act Verifier</div>
+                  <div className="text-[10px]">Open Source Repo</div>
+                </div>
+              </button>
               <button disabled className="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left opacity-50 cursor-not-allowed">
                 <LayoutGrid className="w-5 h-5" />
                 <div>
-                  <div className="text-sm font-bold">Future App 1</div>
+                  <div className="text-sm font-bold">Future Tools</div>
                   <div className="text-[10px]">Coming Soon</div>
                 </div>
               </button>
