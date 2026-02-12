@@ -19,5 +19,6 @@ export default defineConfig(({ mode }) => {
                                 '@': path.resolve(__dirname, '.'),
                         }
                 },
+                base: process.env.VERCEL ? '/' : '/SAVE_ACT-Verifier/',
         };
 });
