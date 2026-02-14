@@ -59,6 +59,22 @@ The application is deployed automatically to **GitHub Pages** whenever changes a
 * **CI/CD Tool:** GitHub Actions.
 * **Configuration File:** `.github/workflows/deploy.yml`
 
+### C. Deployment Strategy: GitHub Pages vs. Vercel
+
+**Important Distinction:**
+
+* **US Civic Action (Legislate):** Deployed on **Vercel** (Server-Side Rendering / Next.js).
+* **SAVE Act Verifier:** Deployed on **GitHub Pages** (Client-Side Static Site).
+
+We use GitHub Pages for this tool because it is a purely static, client-side application with no backend requirements. ensuring maximum availability and zero hosting costs.
+
+**Vite Configuration Note:**
+The `vite.config.ts` file dynamically adjusts the base path:
+
+* **Local/Vercel:** Uses `/` (root).
+* **GitHub Pages:** Uses `/SAVE_ACT-Verifier/` (subdirectory).
+This ensures assets load correctly regardless of where the app is viewed.
+
 **Process:**
 
 1. **Checkout:** The action checks out the code.
@@ -67,7 +83,7 @@ The application is deployed automatically to **GitHub Pages** whenever changes a
 3. **Upload:** Uploads the `dist/` folder as a build artifact.
 4. **Deploy:** Publishes the artifact to GitHub Pages.
 
-### C. Theming & Styling Workflow
+### D. Theming & Styling Workflow
 
 Styles are managed differently than a standard Tailwind setup to allow for easy "drop-in" usage without a complex build step for CSS.
 

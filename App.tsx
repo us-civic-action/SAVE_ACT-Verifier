@@ -1,46 +1,13 @@
 ﻿declare module "*.png";
 import React, { useState, useMemo, useEffect } from 'react';
 import {
-  ShieldCheck,
-  Info,
-  ChevronRight,
-  ChevronLeft,
-  CheckCircle2,
-  AlertTriangle,
-  XCircle,
-  RotateCcw,
-  Scale,
-  Building2,
-  ExternalLink,
-  AlertCircle,
-  Fingerprint,
-  Home,
-  MapPin,
-  ClipboardCheck,
-  Search,
-  Clock,
-  BookOpen,
-  ArrowLeft,
-  Lock,
-  Mail,
-  Gavel,
-  Check,
-  Settings,
-  Moon,
-  Sun,
-  Type,
-  Eye,
-  WifiOff,
-  GitBranch,
-  X,
-  Coffee,
-  Database,
-  FileCode,
-  Menu,
-  Globe,
-  LayoutGrid,
-  Github,
-  ChevronDown
+  ShieldCheck, Info, ChevronRight, ChevronLeft, CheckCircle2,
+  Play, RotateCcw, Search, AlertCircle, HelpCircle, X,
+  ExternalLink, Share2, Printer, Download, Mail, MessageSquare, Twitter, Facebook,
+  Linkedin, Moon, Sun, ChevronDown, Check, Sparkles, Send, Loader2, ArrowRight,
+  UserCheck, CreditCard, Coffee, Layers, Gavel, Globe, Eye, Settings,
+  Heart, AlertTriangle, XCircle, Scale, Building2, Fingerprint, MapPin, ClipboardCheck,
+  Clock, BookOpen, ArrowLeft, Lock, Type, WifiOff, GitBranch, Database, FileCode, Github, LayoutGrid, Home
 } from 'lucide-react';
 import { AppState, EligibilityStatus, AppView, AccessibilitySettings } from './types';
 import { QUESTIONS, STATES, ACCEPTABLE_DPOC, BRIDGING_DOCUMENTS, RESIDENCY_EXAMPLES, SAVE_ACT_BILL_URL } from './constants';
@@ -63,7 +30,7 @@ const App: React.FC = () => {
 
   const [stateSearch, setStateSearch] = useState('');
   const [showSettings, setShowSettings] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showProjectsMenu, setShowProjectsMenu] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('accessibility_settings', JSON.stringify(state.accessibility));
@@ -796,76 +763,76 @@ const App: React.FC = () => {
 
 
   return (
-    <div className={`min-h-screen flex flex-col selection:bg-blue-100 selection:text-blue-900 antialiased font-['Inter'] transition-colors duration-300 ${state.accessibility.isDarkMode ? 'bg-slate-950 text-white' : 'bg-slate-50/50 text-slate-900'} ${state.accessibility.isHighContrast ? 'contrast-125' : ''}`}>
+    <div className={`min-h-screen transition-colors duration-300 ${state.accessibility.isDarkMode ? 'dark bg-slate-950' : 'bg-slate-50'}`}>
+      {/* Header */}
       <header className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 sticky top-0 z-[100] transition-colors">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
 
-          {/* Logo & Brand */}
+          {/* Logo & Brand - Link to Main Hub */}
           <a href="https://nh-civic-app.vercel.app/" className="flex items-center gap-3 group">
             <div className="relative h-14 w-auto aspect-[3/2] overflow-hidden transition-transform group-hover:scale-105">
               <img
                 src={civicLogo}
                 alt="US Civic Action Logo"
-                className="h-full w-full object-contain"
+                className="w-full h-full object-contain"
               />
             </div>
             <div>
-              <h1 className="text-lg font-black text-granite-900 dark:text-white tracking-tight leading-none group-hover:text-nh-green-800 dark:group-hover:text-nh-green-400 transition-colors hidden md:block uppercase">
-                US CIVIC <span className="text-nh-green-700 dark:text-nh-green-500">ACTION</span>
+              <h1 className="text-lg font-black text-granite-900 dark:text-white tracking-tight leading-none group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors hidden md:block uppercase">
+                {state.selectedState ? state.selectedState.toUpperCase() : 'US'} CIVIC <span className="text-blue-600 dark:text-blue-500">ACTION</span>
               </h1>
               <p className="text-xs font-bold text-granite-500 dark:text-slate-400 tracking-wide uppercase hidden md:block">
-                The People&apos;s Voice
+                The People's Voice
               </p>
             </div>
           </a>
 
-          {/* Mobile Menu Button - Left of Nav on Mobile */}
-          <button
-            onClick={() => setShowSidebar(true)}
-            className="p-2 -ml-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-xl transition-colors md:hidden"
-            aria-label="Open Menu"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
-
-          {/* Desktop Navigation */}
+          {/* Desktop & Mobile Navigation */}
           <nav className="flex items-center gap-4">
-            {/* Desktop Links */}
             <a
-              href="https://us-civic-action.github.io/SAVE_ACT-Verifier/"
-              className="hidden md:block text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors"
+              href="https://nh-civic-app.vercel.app/"
+              className="text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors"
             >
               Home
             </a>
             <a
               href="https://nh-civic-app.vercel.app/transparency"
-              className="hidden md:block text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors"
+              className="text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors"
             >
               Transparency
             </a>
 
-            {/* Projects Dropdown - Desktop Only */}
-            <div className="hidden md:block relative group/menu py-4">
-              <button className="text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1">
-                Projects <ChevronDown className="w-4 h-4" />
+            {/* Projects Dropdown - Desktop & Mobile */}
+            <div className="relative group/menu py-4">
+              <button
+                onClick={() => setShowProjectsMenu(!showProjectsMenu)}
+                className="text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1"
+              >
+                Projects <ChevronDown className={`w-4 h-4 transition-transform ${showProjectsMenu ? 'rotate-180' : ''}`} />
               </button>
-              <div className="absolute top-full right-0 w-48 pt-2 opacity-0 invisible group-hover/menu:opacity-100 group-hover/menu:visible transition-all duration-200 z-50 transform translate-y-2 group-hover/menu:translate-y-0">
+              <div className={`absolute top-full right-0 w-56 pt-2 transition-all duration-200 z-50 transform ${showProjectsMenu ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2 group-hover/menu:opacity-100 group-hover/menu:visible group-hover/menu:translate-y-0'}`}>
                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl overflow-hidden p-1">
                   <a
                     href="https://us-civic-action.github.io/SAVE_ACT-Verifier/"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    onClick={() => setShowProjectsMenu(false)}
                     className="flex items-center gap-3 px-4 py-3 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-black dark:hover:text-white rounded-lg transition-colors"
                   >
-                    <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" /> Save Act Verifier
+                    <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+                    <div>
+                      <div>Save Act Verifier</div>
+                      <div className="text-[10px] font-normal opacity-70">Verify Eligibility</div>
+                    </div>
                   </a>
                   <a
                     href="https://nh-civic-app.vercel.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    onClick={() => setShowProjectsMenu(false)}
                     className="flex items-center gap-3 px-4 py-3 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-black dark:hover:text-white rounded-lg transition-colors"
                   >
-                    <Gavel className="w-4 h-4 text-blue-600 dark:text-blue-400" /> US Civic Action App
+                    <Gavel className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+                    <div>
+                      <div>US Civic Action App</div>
+                      <div className="text-[10px] font-normal opacity-70">Community Hub</div>
+                    </div>
                   </a>
                 </div>
               </div>
@@ -873,20 +840,19 @@ const App: React.FC = () => {
 
             <button
               onClick={() => toggleAccessibility('isDarkMode')}
-              className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full transition-colors"
-              aria-label="Toggle Theme"
+              className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"
+              aria-label="Toggle Dark Mode"
             >
-              {state.accessibility.isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              {state.accessibility.isDarkMode ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-slate-600" />}
             </button>
 
-            <a
-              href="https://buy.stripe.com/cNi9ATgtb3vv9f6g1Sawo02"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:flex text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 py-2.5 px-4 rounded-full transition-all shadow-md hover:shadow-lg items-center gap-2 transform hover:-translate-y-0.5"
+            <button
+              onClick={() => window.open('https://buy.stripe.com/cNi9ATgtb3vv9f6g1Sawo02', '_blank')}
+              className="text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 py-2.5 px-4 rounded-full transition-all shadow-md hover:shadow-lg flex items-center gap-2 transform hover:-translate-y-0.5"
             >
-              <Coffee className="w-4 h-4" /> Support
-            </a>
+              <Coffee className="w-4 h-4" /> <span className="hidden sm:inline">Support</span>
+            </button>
+
             {/* Show settings on mobile header? kept logic similar to original but adapting to new layout */}
             <button
               onClick={() => setShowSettings(true)}
@@ -900,83 +866,6 @@ const App: React.FC = () => {
         </div>
       </header>
 
-
-      {/* Sidebar Navigation */}
-      {showSidebar && (
-        <div className="fixed inset-0 z-[100] flex justify-start">
-          <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={() => setShowSidebar(false)} />
-          <div className={`relative w-full max-w-xs h-full shadow-2xl border-r p-6 animate-in slide-in-from-left duration-300 flex flex-col ${state.accessibility.isDarkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-3">
-                <img src={civicLogo} alt="Logo" className="w-8 h-8 object-contain" />
-                <span className="text-sm font-black uppercase tracking-tighter">US Civic Action</span>
-              </div>
-              <button onClick={() => setShowSidebar(false)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <nav className="space-y-2 flex-grow">
-              <div className="px-3 py-2 text-[10px] uppercase font-black tracking-widest text-slate-500 dark:text-slate-400">
-                Apps
-              </div>
-              <button onClick={() => { window.location.href = 'https://nh-civic-app.vercel.app/'; setShowSidebar(false); }} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ${state.accessibility.isDarkMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-slate-50 text-slate-900 hover:bg-slate-100'}`}>
-                <Globe className="w-5 h-5 text-blue-500" />
-                <div>
-                  <div className="text-sm font-bold">Home</div>
-                  <div className="text-[10px] opacity-70">Main Hub</div>
-                </div>
-              </button>
-
-              <button onClick={() => { window.location.href = 'https://nh-civic-app.vercel.app/legislate'; setShowSidebar(false); }} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ${state.accessibility.isDarkMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-slate-50 text-slate-900 hover:bg-slate-100'}`}>
-                <Gavel className="w-5 h-5 text-blue-500" />
-                <div>
-                  <div className="text-sm font-bold">Legislate</div>
-                  <div className="text-[10px] opacity-70">Drafting Tools</div>
-                </div>
-              </button>
-
-              <button onClick={() => { setView('statutes'); setShowSidebar(false); }} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ${state.accessibility.isDarkMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-slate-50 text-slate-900 hover:bg-slate-100'}`}>
-                <Eye className="w-5 h-5 text-blue-500" />
-                <div>
-                  <div className="text-sm font-bold">Transparency</div>
-                  <div className="text-[10px] opacity-70">View Statutes</div>
-                </div>
-              </button>
-
-              <div className="px-3 py-2 mt-6 text-[10px] uppercase font-black tracking-widest text-slate-500 dark:text-slate-400">
-                Projects
-              </div>
-              <button onClick={() => { window.open('https://github.com/us-civic-action/SAVE_ACT-Verifier', '_blank'); setShowSidebar(false); }} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left ${state.accessibility.isDarkMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-slate-50 text-slate-900 hover:bg-slate-100'}`}>
-                <Github className="w-5 h-5" />
-                <div>
-                  <div className="text-sm font-bold">Save Act Verifier</div>
-                  <div className="text-[10px]">Open Source Repo</div>
-                </div>
-              </button>
-              <button disabled className="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-colors text-left opacity-50 cursor-not-allowed">
-                <LayoutGrid className="w-5 h-5" />
-                <div>
-                  <div className="text-sm font-bold">Future Tools</div>
-                  <div className="text-[10px]">Coming Soon</div>
-                </div>
-              </button>
-            </nav>
-
-            <div className="pt-6 border-t border-slate-200 dark:border-slate-800">
-              <a
-                href="https://github.com/us-civic-action"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 px-3 py-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white transition-colors"
-              >
-                <GitBranch className="w-4 h-4" />
-                GitHub Organization
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Accessibility Drawer */}
       {showSettings && (
