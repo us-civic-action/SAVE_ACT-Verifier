@@ -520,8 +520,9 @@ const App: React.FC = () => {
                   >
                     Save Act Verifier
                   </h1>
-                  <p className={`text-lg md:text-xl font-medium tracking-wide ${state.accessibility.isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-                    Understand the impact. Navigate the requirements.
+                  <p className={`text-sm md:text-base font-medium max-w-lg mx-auto leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                    This tool summarizes documentation requirements proposed under the SAVE Act. <br className="hidden md:block" />
+                    It does not collect or store any personal data. It is an informational reference tool only.
                   </p>
                 </div>
 
@@ -750,6 +751,24 @@ const App: React.FC = () => {
                         <button onClick={reset} className="w-full flex items-center justify-center gap-3 bg-transparent text-slate-500 dark:text-slate-400 font-bold uppercase tracking-[0.2em] py-5 rounded-[2rem] hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 active:scale-95 text-[10px]">
                           <RotateCcw className="w-3 h-3" /> Check Another Person
                         </button>
+
+                        <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-700">
+                          <h4 className="text-center text-[10px] font-black uppercase tracking-widest mb-4 text-slate-400 dark:text-slate-500">Official Sources & Status</h4>
+                          <div className="flex flex-wrap justify-center gap-3">
+                            <a href="https://www.congress.gov/bill/118th-congress/house-bill/8281/text" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                              <ExternalLink className="w-3 h-3" /> Bill Text
+                            </a>
+                            <a href="https://www.congress.gov/bill/118th-congress/house-bill/8281" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                              <ExternalLink className="w-3 h-3" /> Official Summaries
+                            </a>
+                            <a href="https://www.congress.gov/bill/118th-congress/house-bill/8281/all-actions" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                              <ExternalLink className="w-3 h-3" /> Legislative Status
+                            </a>
+                          </div>
+                          <p className="mt-6 text-center text-[10px] text-slate-400 dark:text-slate-500 max-w-xs mx-auto leading-relaxed">
+                            This tool is not affiliated with any government agency. Always confirm requirements with your state election office.
+                          </p>
+                        </div>
                       </div>
                     </div>
                   );
