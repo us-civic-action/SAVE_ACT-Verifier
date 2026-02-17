@@ -348,7 +348,7 @@ const App: React.FC = () => {
   };
 
   const highContrastClass = state.accessibility.isHighContrast ? 'border-2 border-black dark:border-white bg-white text-black dark:bg-black dark:text-white shadow-none' : '';
-  const largeTextClass = state.accessibility.isLargeText ? 'text-lg md:text-xl' : '';
+  const getTextSize = (normal: string, large: string) => state.accessibility.isLargeText ? large : normal;
 
   const renderView = () => {
     switch (state.view) {
@@ -360,7 +360,7 @@ const App: React.FC = () => {
                 <Lock className="w-6 h-6" />
               </div>
               <h2
-                className={`text-3xl font-black tracking-tighter uppercase ${largeTextClass}`}
+                className={`font-black tracking-tighter uppercase ${getTextSize('text-3xl', 'text-4xl')}`}
                 style={{ color: state.accessibility.isDarkMode ? '#ffffff' : '#000000' }}
               >
                 Privacy Policy
@@ -370,7 +370,7 @@ const App: React.FC = () => {
               <div className={`p-6 md:p-8 rounded-[2.5rem] border shadow-inner ${state.accessibility.isHighContrast ? 'bg-white dark:bg-black border-black dark:border-white' : 'bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-700'}`}>
                 <h4 className="text-sm font-black text-black dark:text-white uppercase tracking-widest mb-4">No Data Collection</h4>
                 <p
-                  className={`leading-relaxed text-sm ${largeTextClass}`}
+                  className={`leading-relaxed ${getTextSize('text-sm', 'text-lg')}`}
                   style={{ color: state.accessibility.isDarkMode ? '#e2e8f0' : '#0f172a' }}
                 >
                   We believe civic tools should be private by design. <strong>This application does not collect, store, or transmit any information you enter.</strong> All eligibility calculations are performed locally in your browser.
@@ -390,7 +390,7 @@ const App: React.FC = () => {
                 <Gavel className="w-6 h-6" />
               </div>
               <h2
-                className={`text-3xl font-black tracking-tighter uppercase ${largeTextClass}`}
+                className={`font-black tracking-tighter uppercase ${getTextSize('text-3xl', 'text-4xl')}`}
                 style={{ color: state.accessibility.isDarkMode ? '#ffffff' : '#000000' }}
               >
                 Transparency & Legal
@@ -404,7 +404,7 @@ const App: React.FC = () => {
                 </div>
                 <div>
                   <h3 className={`text-sm font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-blue-900'}`}>Why This Matters</h3>
-                  <p className={`text-xs leading-relaxed ${state.accessibility.isDarkMode ? 'text-blue-100' : 'text-blue-900/80'} ${largeTextClass}`}>
+                  <p className={`leading-relaxed ${state.accessibility.isDarkMode ? 'text-blue-100' : 'text-blue-900/80'} ${getTextSize('text-xs', 'text-base')}`}>
                     The <strong>SAVE Act (H.R.8281)</strong> has passed the House and is currently in the Senate. This tool reflects the requirements as they are written in the proposed law, helping you verify if you have the correct documents ready for 2026.
                   </p>
                 </div>
@@ -419,7 +419,7 @@ const App: React.FC = () => {
                   </div>
                   <div>
                     <h3 className={`text-sm font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'}`}>Zero Data Retention</h3>
-                    <p className={`text-xs leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-300' : 'text-slate-600'} ${largeTextClass}`}>
+                    <p className={`leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-300' : 'text-slate-600'} ${getTextSize('text-xs', 'text-base')}`}>
                       We believe civic tools should be private by design. <strong>We save absolutely no data.</strong> Everything runs locally in your browser.
                     </p>
                   </div>
@@ -433,7 +433,7 @@ const App: React.FC = () => {
                   </div>
                   <div>
                     <h3 className={`text-sm font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'}`}>Minimalist Code</h3>
-                    <p className={`text-xs leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-300' : 'text-slate-600'} ${largeTextClass}`}>
+                    <p className={`leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-300' : 'text-slate-600'} ${getTextSize('text-xs', 'text-base')}`}>
                       This site is so tiny it could fit on a milk carton. No bloat, no tracking scripts, just the logic you need.
                     </p>
                   </div>
@@ -444,7 +444,7 @@ const App: React.FC = () => {
             <div className="space-y-6">
               <h3 className={`text-xs font-black uppercase tracking-widest ${state.accessibility.isDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>Legal Basis</h3>
               <p
-                className={`leading-relaxed ${largeTextClass}`}
+                className={`leading-relaxed ${getTextSize('text-base', 'text-lg')}`}
                 style={{ color: state.accessibility.isDarkMode ? '#f1f5f9' : '#0f172a' }}
               >
                 The logic within this tool is derived from <strong>H.R.8281 - Safeguard American Voter Eligibility Act (SAVE Act)</strong>.
@@ -474,7 +474,7 @@ const App: React.FC = () => {
                 <Mail className="w-6 h-6" />
               </div>
               <h2
-                className={`text-3xl font-black tracking-tighter uppercase ${largeTextClass}`}
+                className={`font-black tracking-tighter uppercase ${getTextSize('text-3xl', 'text-4xl')}`}
                 style={{ color: state.accessibility.isDarkMode ? '#ffffff' : '#000000' }}
               >
                 Get Support
@@ -515,12 +515,12 @@ const App: React.FC = () => {
                     />
                   </div>
                   <h1
-                    className={`text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'}`}
+                    className={`font-black uppercase tracking-tighter mb-4 ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'} ${getTextSize('text-5xl md:text-7xl', 'text-6xl md:text-8xl')}`}
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     Save Act Verifier
                   </h1>
-                  <p className={`text-sm md:text-base font-medium max-w-lg mx-auto leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                  <p className={`font-medium max-w-lg mx-auto leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-400' : 'text-slate-600'} ${getTextSize('text-sm md:text-base', 'text-base md:text-lg')}`}>
                     This tool summarizes documentation requirements proposed under the SAVE Act. <br className="hidden md:block" />
                     It does not collect or store any personal data. It is an informational reference tool only.
                   </p>
@@ -533,7 +533,7 @@ const App: React.FC = () => {
                     </div>
                     <div>
                       <h3 className={`text-sm font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-blue-900'}`}>Why This Matters</h3>
-                      <p className={`text-xs leading-relaxed ${state.accessibility.isDarkMode ? 'text-blue-100' : 'text-blue-900/80'} ${largeTextClass}`}>
+                      <p className={`leading-relaxed ${state.accessibility.isDarkMode ? 'text-blue-100' : 'text-blue-900/80'} ${getTextSize('text-xs', 'text-base')}`}>
                         The <strong>SAVE Act (H.R.8281)</strong> has passed the House and is currently in the Senate. This tool reflects the requirements as they are written in the proposed law, helping you verify if you have the correct documents ready for 2026.
                       </p>
                     </div>
@@ -542,7 +542,7 @@ const App: React.FC = () => {
 
                 <div className="text-center mb-10">
                   <p
-                    className={`mt-4 text-lg font-medium ${largeTextClass}`}
+                    className={`mt-4 font-medium ${getTextSize('text-lg', 'text-xl')}`}
                     style={{ color: state.accessibility.isDarkMode ? '#e2e8f0' : '#1e293b' }}
                   >
                     Requirements vary by state. Select yours to begin checking your eligibility.
@@ -589,7 +589,7 @@ const App: React.FC = () => {
                     Step Back
                   </button>
                   <h3
-                    className={`text-3xl font-black mb-6 leading-snug tracking-tighter uppercase ${largeTextClass}`}
+                    className={`font-black mb-6 leading-snug tracking-tighter uppercase ${getTextSize('text-3xl', 'text-4xl')}`}
                     style={{ color: state.accessibility.isDarkMode ? '#ffffff' : '#000000' }}
                   >
                     {activeQuestions[state.currentStep].text}
@@ -627,7 +627,7 @@ const App: React.FC = () => {
                       className={`w-full text-left p-6 md:p-8 border-2 rounded-[1.8rem] transition-all group relative overflow-hidden active:scale-[0.98] ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700 hover:border-blue-500 hover:bg-slate-700/50' : 'bg-white border-slate-50 hover:border-blue-900 hover:bg-blue-50/20'}`}
                     >
                       <div className="flex items-center justify-between relative z-10">
-                        <span className={`font-black text-base uppercase tracking-wider leading-none ${state.accessibility.isDarkMode ? 'text-white' : 'text-black'} ${largeTextClass}`}>{opt.label}</span>
+                        <span className={`font-black uppercase tracking-wider leading-none ${state.accessibility.isDarkMode ? 'text-white' : 'text-black'} ${getTextSize('text-base', 'text-xl')}`}>{opt.label}</span>
                         <div className={`w-12 h-12 rounded-2xl border-2 flex items-center justify-center transition-all bg-white dark:bg-slate-900 shadow-sm ${state.accessibility.isDarkMode ? 'border-slate-700 group-hover:border-blue-500' : 'border-slate-100 group-hover:border-blue-900'}`}>
                           <div className="w-5 h-5 bg-blue-900 dark:bg-blue-500 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300" />
                         </div>
