@@ -136,7 +136,7 @@ const App: React.FC = () => {
     if (!isCitizen) {
       return {
         status: 'Ineligible',
-        checklist: [<span className="text-red-600 dark:text-red-400 font-bold">Federal Law (2026 SAVE Act) restricts voter registration to U.S. Citizens only. Non-citizens are not eligible to register.</span>],
+        checklist: [<span className={`font-bold text-red-600 dark:text-red-400 ${getTextSize('text-base', 'text-xl')}`}>Federal Law (2026 SAVE Act) restricts voter registration to U.S. Citizens only. Non-citizens are not eligible to register.</span>],
         actionItems: []
       };
     }
@@ -144,7 +144,7 @@ const App: React.FC = () => {
     if (!isOfAge) {
       return {
         status: 'Ineligible',
-        checklist: [<span>You must be at least 18 years old on or before Election Day. You may be able to pre-register depending on local {selectedStateData?.name} laws.</span>],
+        checklist: [<span className={getTextSize('text-base', 'text-xl')}>You must be at least 18 years old on or before Election Day. You may be able to pre-register depending on local {selectedStateData?.name} laws.</span>],
         actionItems: []
       };
     }
@@ -152,17 +152,17 @@ const App: React.FC = () => {
     if (!isResident || !hasResidencyProof) {
       const item = (
         <div className={`flex flex-col gap-3 p-5 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-blue-50/50 border-blue-100 dark:bg-blue-900/10 dark:border-blue-900/30'}`}>
-          <div className="flex items-center gap-2 text-blue-900 dark:text-blue-300 font-black uppercase tracking-[0.15em] text-[10px]">
+          <div className={`flex items-center gap-2 text-blue-900 dark:text-blue-300 font-black uppercase tracking-[0.15em] ${getTextSize('text-[10px]', 'text-sm')}`}>
             <Home className="w-4 h-4" />
             Establish Residency Proof
           </div>
-          <span className="text-sm text-blue-900 dark:text-blue-100 font-bold leading-relaxed">
+          <span className={`text-blue-900 dark:text-blue-100 font-bold leading-relaxed ${getTextSize('text-sm', 'text-lg')}`}>
             Registering in {selectedStateData?.name} requires documentation linking your identity to your local address.
           </span>
           <div className={`p-4 rounded-xl border ${state.accessibility.isHighContrast ? 'border-black dark:border-white' : 'bg-white/80 dark:bg-slate-800/80 border-blue-200/50'}`}>
             <ul className="space-y-1.5">
               {RESIDENCY_EXAMPLES.slice(0, 5).map((ex, idx) => (
-                <li key={idx} className="text-xs text-blue-700 dark:text-blue-400 flex items-center gap-2 font-medium">
+                <li key={idx} className={`text-blue-700 dark:text-blue-400 flex items-center gap-2 font-medium ${getTextSize('text-xs', 'text-base')}`}>
                   <MapPin className="w-3 h-3 shrink-0" />
                   {ex}
                 </li>
@@ -186,12 +186,12 @@ const App: React.FC = () => {
       if (hasDuration === false) {
         checklist.push(
           <div className={`flex flex-col gap-3 p-5 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-slate-50 border-slate-200 dark:bg-slate-800/50 dark:border-slate-700'}`}>
-            <div className="flex items-center gap-2 text-slate-900 dark:text-slate-200 font-black uppercase tracking-[0.15em] text-[10px]">
+            <div className={`flex items-center gap-2 text-slate-900 dark:text-slate-200 font-black uppercase tracking-[0.15em] ${getTextSize('text-[10px]', 'text-sm')}`}>
               <Clock className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               Residency Duration Requirement
             </div>
             <div className="space-y-2">
-              <span className="text-sm text-slate-900 dark:text-slate-100 font-bold block">
+              <span className={`text-slate-900 dark:text-slate-100 font-bold block ${getTextSize('text-sm', 'text-lg')}`}>
                 You must wait until you have lived in {selectedStateData.name} for at least {selectedStateData.residencyDays} days before registering.
               </span>
             </div>
@@ -211,18 +211,18 @@ const App: React.FC = () => {
     if (namesMatch === false) {
       const item = (
         <div className={`flex flex-col gap-4 p-5 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-amber-50 border-amber-100 dark:bg-amber-900/10 dark:border-amber-900/30'}`}>
-          <div className="flex items-center gap-2 text-amber-900 dark:text-amber-300 font-black uppercase tracking-[0.15em] text-[10px]">
+          <div className={`flex items-center gap-2 text-amber-900 dark:text-amber-300 font-black uppercase tracking-[0.15em] ${getTextSize('text-[10px]', 'text-sm')}`}>
             <Fingerprint className="w-4 h-4" />
             Critical: Identity Linkage Required
           </div>
           <div className="space-y-3">
-            <span className="text-sm text-amber-900 dark:text-amber-100 leading-relaxed font-bold block">
+            <span className={`text-amber-900 dark:text-amber-100 leading-relaxed font-bold block ${getTextSize('text-sm', 'text-lg')}`}>
               Since your current name (on ID) differs from your citizenship proof, a "paper trail" is mandatory.
             </span>
             <div className={`p-4 rounded-xl border ${state.accessibility.isHighContrast ? 'border-black dark:border-white' : 'bg-white/60 dark:bg-slate-800/60 border-amber-200/50'}`}>
               <ul className="space-y-2">
                 {BRIDGING_DOCUMENTS.map((doc, idx) => (
-                  <li key={idx} className="text-xs text-amber-700 dark:text-amber-400 flex items-start gap-2">
+                  <li key={idx} className={`text-amber-700 dark:text-amber-400 flex items-start gap-2 ${getTextSize('text-xs', 'text-base')}`}>
                     <div className="w-1.5 h-1.5 bg-amber-400 rounded-full mt-1 shrink-0" />
                     {doc}
                   </li>
@@ -246,18 +246,18 @@ const App: React.FC = () => {
       if (isStrict) {
         const item = (
           <div className={`flex flex-col gap-5 p-6 rounded-[2.5rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-red-50/50 border-red-100 dark:bg-red-900/10 dark:border-red-900/30'}`}>
-            <div className="flex items-center gap-2 text-red-700 dark:text-red-400 font-black uppercase tracking-widest text-[10px]">
+            <div className={`flex items-center gap-2 text-red-700 dark:text-red-400 font-black uppercase tracking-widest ${getTextSize('text-[10px]', 'text-sm')}`}>
               <AlertCircle className="w-4 h-4" />
               Strict Enforcement: DPOC Required
             </div>
             <div className="space-y-4">
-              <span className="text-sm text-red-900 dark:text-red-100 font-bold leading-relaxed block">
+              <span className={`text-red-900 dark:text-red-100 font-bold leading-relaxed block ${getTextSize('text-sm', 'text-lg')}`}>
                 {selectedStateData?.name} mandates physical proof of citizenship at the time of registration.
               </span>
               <div className={`p-5 rounded-2xl shadow-sm border ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-white dark:bg-slate-800 border-red-100 dark:border-red-900/40'}`}>
                 <ul className="space-y-2">
                   {ACCEPTABLE_DPOC.slice(0, 4).map((doc, idx) => (
-                    <li key={idx} className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-start gap-3">
+                    <li key={idx} className={`font-bold text-slate-800 dark:text-slate-200 flex items-start gap-3 ${getTextSize('text-xs', 'text-base')}`}>
                       <div className="w-1.5 h-1.5 bg-red-400 rounded-full mt-1.5 shrink-0" />
                       {doc}
                     </li>
@@ -276,8 +276,8 @@ const App: React.FC = () => {
       } else {
         checklist.push(
           <div className={`flex flex-col gap-3 p-5 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-emerald-50/30 border-emerald-100 dark:bg-emerald-900/10 dark:border-emerald-900/30'}`}>
-            <span className="text-xs font-black text-emerald-800 dark:text-emerald-400 uppercase tracking-widest">Streamlined Verification</span>
-            <p className="text-xs text-emerald-900 dark:text-emerald-200 leading-relaxed">
+            <span className={`font-black text-emerald-800 dark:text-emerald-400 uppercase tracking-widest ${getTextSize('text-xs', 'text-base')}`}>Streamlined Verification</span>
+            <p className={`text-emerald-900 dark:text-emerald-200 leading-relaxed ${getTextSize('text-xs', 'text-base')}`}>
               {selectedStateData?.name} uses automated DMV checks. Re-submission may not be required if previously verified.
             </p>
           </div>
@@ -288,11 +288,11 @@ const App: React.FC = () => {
     if (checklist.length === 0) {
       const successItems = [
         <div key="base" className={`flex flex-col gap-1 p-5 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-emerald-50/50 border-emerald-100 dark:bg-emerald-900/10 dark:border-emerald-900/30'}`}>
-          <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-400 font-black uppercase tracking-[0.15em] text-[10px]">
+          <div className={`flex items-center gap-2 text-emerald-800 dark:text-emerald-400 font-black uppercase tracking-[0.15em] ${getTextSize('text-[10px]', 'text-sm')}`}>
             <ShieldCheck className="w-4 h-4" />
             Confirmed: Identity Verified
           </div>
-          <span className="text-sm font-bold text-emerald-900 dark:text-emerald-200 block mt-1">
+          <span className={`font-bold text-emerald-900 dark:text-emerald-200 block mt-1 ${getTextSize('text-sm', 'text-lg')}`}>
             You meet the standard identity documentation rules for {selectedStateData?.name}.
           </span>
         </div>
@@ -301,11 +301,11 @@ const App: React.FC = () => {
       if (residencyDurationMet) {
         successItems.unshift(
           <div key="duration" className={`flex flex-col gap-1 p-5 mb-4 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-emerald-50/50 border-emerald-100 dark:bg-emerald-900/10 dark:border-emerald-900/30'}`}>
-            <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-400 font-black uppercase tracking-[0.15em] text-[10px]">
+            <div className={`flex items-center gap-2 text-emerald-800 dark:text-emerald-400 font-black uppercase tracking-[0.15em] ${getTextSize('text-[10px]', 'text-sm')}`}>
               <MapPin className="w-4 h-4" />
               Confirmed: Residency Duration
             </div>
-            <span className="text-sm text-emerald-900 dark:text-emerald-200 font-bold block mt-1">
+            <span className={`text-emerald-900 dark:text-emerald-200 font-bold block mt-1 ${getTextSize('text-sm', 'text-lg')}`}>
               You have lived in {selectedStateData?.name} for at least {selectedStateData?.residencyDays} days.
             </span>
           </div>
@@ -314,11 +314,11 @@ const App: React.FC = () => {
         // Even if duration wasn't explicitly asked (0 days), confirm residency generally
         successItems.unshift(
           <div key="residency_general" className={`flex flex-col gap-1 p-5 mb-4 rounded-[2rem] border-2 shadow-sm ${state.accessibility.isHighContrast ? 'bg-white border-black dark:bg-black dark:border-white' : 'bg-emerald-50/50 border-emerald-100 dark:bg-emerald-900/10 dark:border-emerald-900/30'}`}>
-            <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-400 font-black uppercase tracking-[0.15em] text-[10px]">
+            <div className={`flex items-center gap-2 text-emerald-800 dark:text-emerald-400 font-black uppercase tracking-[0.15em] ${getTextSize('text-[10px]', 'text-sm')}`}>
               <Home className="w-4 h-4" />
               Confirmed: Residency Established
             </div>
-            <span className="text-sm text-emerald-900 dark:text-emerald-200 font-bold block mt-1">
+            <span className={`text-emerald-900 dark:text-emerald-200 font-bold block mt-1 ${getTextSize('text-sm', 'text-lg')}`}>
               You have a fixed habitation in {selectedStateData?.name}.
             </span>
           </div>
@@ -377,7 +377,7 @@ const App: React.FC = () => {
                 </p>
               </div>
             </div>
-            <button onClick={() => setView('checker')} className="mt-12 flex items-center gap-3 bg-slate-900 dark:bg-blue-600 text-white font-black uppercase tracking-[0.2em] px-8 py-5 rounded-[2rem] hover:bg-slate-800 transition-all shadow-xl text-[10px] active:scale-95">
+            <button onClick={() => setView('checker')} className={`mt-12 flex items-center gap-3 bg-slate-900 dark:bg-blue-600 text-white font-black uppercase tracking-[0.2em] px-8 py-5 rounded-[2rem] hover:bg-slate-800 transition-all shadow-xl active:scale-95 ${getTextSize('text-[10px]', 'text-sm')}`}>
               <ArrowLeft className="w-4 h-4" /> Return to Checker
             </button>
           </div>
@@ -403,7 +403,7 @@ const App: React.FC = () => {
                   <Info className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className={`text-sm font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-blue-900'}`}>Why This Matters</h3>
+                  <h3 className={`font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-blue-900'} ${getTextSize('text-sm', 'text-lg')}`}>Why This Matters</h3>
                   <p className={`leading-relaxed ${state.accessibility.isDarkMode ? 'text-blue-100' : 'text-blue-900/80'} ${getTextSize('text-xs', 'text-base')}`}>
                     The <strong>SAVE Act (H.R.8281)</strong> has passed the House and is currently in the Senate. This tool reflects the requirements as they are written in the proposed law, helping you verify if you have the correct documents ready for 2026.
                   </p>
@@ -418,7 +418,7 @@ const App: React.FC = () => {
                     <Database className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className={`text-sm font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'}`}>Zero Data Retention</h3>
+                    <h3 className={`font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'} ${getTextSize('text-sm', 'text-lg')}`}>Zero Data Retention</h3>
                     <p className={`leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-300' : 'text-slate-600'} ${getTextSize('text-xs', 'text-base')}`}>
                       We believe civic tools should be private by design. <strong>We save absolutely no data.</strong> Everything runs locally in your browser.
                     </p>
@@ -432,7 +432,7 @@ const App: React.FC = () => {
                     <FileCode className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className={`text-sm font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'}`}>Minimalist Code</h3>
+                    <h3 className={`font-black uppercase tracking-wide mb-2 ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'} ${getTextSize('text-sm', 'text-lg')}`}>Minimalist Code</h3>
                     <p className={`leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-300' : 'text-slate-600'} ${getTextSize('text-xs', 'text-base')}`}>
                       This site is so tiny it could fit on a milk carton. No bloat, no tracking scripts, just the logic you need.
                     </p>
@@ -442,7 +442,7 @@ const App: React.FC = () => {
             </div>
 
             <div className="space-y-6">
-              <h3 className={`text-xs font-black uppercase tracking-widest ${state.accessibility.isDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>Legal Basis</h3>
+              <h3 className={`font-black uppercase tracking-widest ${state.accessibility.isDarkMode ? 'text-slate-500' : 'text-slate-400'} ${getTextSize('text-xs', 'text-base')}`}>Legal Basis</h3>
               <p
                 className={`leading-relaxed ${getTextSize('text-base', 'text-lg')}`}
                 style={{ color: state.accessibility.isDarkMode ? '#f1f5f9' : '#0f172a' }}
@@ -454,14 +454,14 @@ const App: React.FC = () => {
                   href={SAVE_ACT_BILL_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 w-full bg-blue-900 dark:bg-blue-600 text-white font-black uppercase tracking-[0.2em] py-5 rounded-[1.5rem] hover:bg-blue-800 transition-all text-[11px]"
+                  className={`inline-flex items-center justify-center gap-3 w-full bg-blue-900 dark:bg-blue-600 text-white font-black uppercase tracking-[0.2em] py-5 rounded-[1.5rem] hover:bg-blue-800 transition-all ${getTextSize('text-[11px]', 'text-sm')}`}
                 >
                   View Bill Text on Congress.gov <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
             </div>
 
-            <button onClick={() => setView('checker')} className="mt-12 flex items-center gap-3 bg-slate-900 dark:bg-blue-600 text-white font-black uppercase tracking-[0.2em] px-8 py-5 rounded-[2rem] hover:bg-slate-800 transition-all shadow-xl text-[10px] active:scale-95">
+            <button onClick={() => setView('checker')} className={`mt-12 flex items-center gap-3 bg-slate-900 dark:bg-blue-600 text-white font-black uppercase tracking-[0.2em] px-8 py-5 rounded-[2rem] hover:bg-slate-800 transition-all shadow-xl active:scale-95 ${getTextSize('text-[10px]', 'text-sm')}`}>
               <ArrowLeft className="w-4 h-4" /> Return to Checker
             </button>
           </div>
@@ -487,14 +487,14 @@ const App: React.FC = () => {
                     <Home className="w-5 h-5 text-blue-900 dark:text-blue-400" />
                   </div>
                   <div className="text-left">
-                    <h4 className="text-sm font-black text-black dark:text-white uppercase">Vote.gov</h4>
-                    <p className="text-[10px] text-slate-700 dark:text-slate-300 font-medium uppercase tracking-widest">Official Registration Portal</p>
+                    <h4 className={`font-black text-black dark:text-white uppercase ${getTextSize('text-sm', 'text-lg')}`}>Vote.gov</h4>
+                    <p className={`text-slate-700 dark:text-slate-300 font-medium uppercase tracking-widest ${getTextSize('text-[10px]', 'text-sm')}`}>Official Registration Portal</p>
                   </div>
                 </div>
                 <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-blue-900 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
-            <button onClick={() => setView('checker')} className="mt-12 flex items-center gap-3 bg-slate-900 dark:bg-blue-600 text-white font-black uppercase tracking-[0.2em] px-8 py-5 rounded-[2rem] hover:bg-slate-800 transition-all shadow-xl text-[10px] active:scale-95">
+            <button onClick={() => setView('checker')} className={`mt-12 flex items-center gap-3 bg-slate-900 dark:bg-blue-600 text-white font-black uppercase tracking-[0.2em] px-8 py-5 rounded-[2rem] hover:bg-slate-800 transition-all shadow-xl active:scale-95 ${getTextSize('text-[10px]', 'text-sm')}`}>
               <ArrowLeft className="w-4 h-4" /> Return to Checker
             </button>
           </div>
@@ -559,7 +559,7 @@ const App: React.FC = () => {
                       placeholder="Search for your state..."
                       value={stateSearch}
                       onChange={(e) => setStateSearch(e.target.value)}
-                      className={`block w-full pl-11 pr-4 py-5 border-2 rounded-2xl focus:ring-4 transition-all outline-none font-bold placeholder-slate-500 ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700 text-white focus:border-blue-500 focus:ring-blue-500/10' : 'bg-slate-50/50 border-slate-50 focus:bg-white focus:border-blue-900 focus:ring-blue-900/5 text-black'}`}
+                      className={`block w-full pl-11 pr-4 py-5 border-2 rounded-2xl focus:ring-4 transition-all outline-none font-bold placeholder-slate-500 ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700 text-white focus:border-blue-500 focus:ring-blue-500/10' : 'bg-slate-50/50 border-slate-50 focus:bg-white focus:border-blue-900 focus:ring-blue-900/5 text-black'} ${getTextSize('text-base', 'text-xl')}`}
                     />
                   </div>
 
@@ -570,7 +570,7 @@ const App: React.FC = () => {
                         onClick={() => handleStateSelect(s.code)}
                         className={`flex items-center justify-between px-6 py-5 border-2 rounded-[1.2rem] hover:shadow-lg transition-all text-left group active:scale-[0.97] ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700 hover:border-blue-500' : 'bg-white border-slate-50 hover:border-blue-900 hover:bg-blue-50/30'}`}
                       >
-                        <span className={`font-black text-xs uppercase tracking-tight group-hover:text-blue-900 dark:group-hover:text-blue-400 ${state.accessibility.isDarkMode ? 'text-white' : 'text-black'}`}>{s.name}</span>
+                        <span className={`font-black uppercase tracking-tight group-hover:text-blue-900 dark:group-hover:text-blue-400 ${state.accessibility.isDarkMode ? 'text-white' : 'text-black'} ${getTextSize('text-xs', 'text-base')}`}>{s.name}</span>
                         <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-900 transition-transform group-hover:translate-x-1" />
                       </button>
                     ))}
@@ -598,7 +598,7 @@ const App: React.FC = () => {
                   {activeQuestions[state.currentStep].id === 'dpoc' && (
                     <div className={`p-6 md:p-6 mb-8 rounded-[2rem] border ${state.accessibility.isDarkMode ? 'bg-slate-800/50 border-slate-700' : 'bg-blue-50/50 border-blue-100'}`}>
                       <h4
-                        className="text-xs font-black uppercase tracking-widest mb-4 flex items-center gap-2"
+                        className={`font-black uppercase tracking-widest mb-4 flex items-center gap-2 ${getTextSize('text-xs', 'text-base')}`}
                         style={{ color: state.accessibility.isDarkMode ? '#ffffff' : '#1e293b' }}
                       >
                         <ShieldCheck className="w-4 h-4 text-blue-500" />
@@ -609,7 +609,7 @@ const App: React.FC = () => {
                           <li key={i} className="flex items-start gap-3">
                             <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${state.accessibility.isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
                             <span
-                              className={`text-sm font-bold leading-tight ${state.accessibility.isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}
+                              className={`font-bold leading-tight ${state.accessibility.isDarkMode ? 'text-slate-200' : 'text-slate-700'} ${getTextSize('text-sm', 'text-lg')}`}
                             >
                               {doc}
                             </span>
@@ -650,8 +650,8 @@ const App: React.FC = () => {
                           {status === 'Action Required' && <div className={`p-6 md:p-8 rounded-[2.5rem] shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-amber-900/20 ring-amber-900/50 shadow-amber-900/30' : 'bg-amber-50 ring-amber-100 shadow-amber-500/10'}`}><AlertTriangle className="w-24 h-24 text-amber-500" /></div>}
                           {status === 'Ineligible' && <div className={`p-6 md:p-8 rounded-[2.5rem] shadow-2xl ring-1 ${state.accessibility.isDarkMode ? 'bg-red-900/20 ring-red-900/50 shadow-red-900/30' : 'bg-red-50 ring-red-100 shadow-red-500/10'}`}><XCircle className="w-24 h-24 text-red-500" /></div>}
                         </div>
-                        <h2 className={`text-5xl md:text-6xl font-black uppercase tracking-tighter leading-none mb-4 ${status === 'Likely Eligible' ? 'text-emerald-700 dark:text-emerald-400' : status === 'Action Required' ? 'text-amber-600' : 'text-red-600'}`}>{status}</h2>
-                        <div className="inline-block px-6 py-2 bg-slate-900 dark:bg-blue-600 text-white rounded-full text-xs font-black uppercase tracking-[0.2em] shadow-lg">Jurisdiction: {selectedStateData?.name}</div>
+                        <h2 className={`font-black uppercase tracking-tighter leading-none mb-4 ${status === 'Likely Eligible' ? 'text-emerald-700 dark:text-emerald-400' : status === 'Action Required' ? 'text-amber-600' : 'text-red-600'} ${getTextSize('text-5xl md:text-6xl', 'text-6xl md:text-7xl')}`}>{status}</h2>
+                        <div className={`inline-block px-6 py-2 bg-slate-900 dark:bg-blue-600 text-white rounded-full font-black uppercase tracking-[0.2em] shadow-lg ${getTextSize('text-xs', 'text-base')}`}>Jurisdiction: {selectedStateData?.name}</div>
                       </div>
 
                       <div className={`rounded-[3rem] p-8 mb-10 border shadow-inner ring-1 ${state.accessibility.isDarkMode ? 'bg-slate-800/40 border-slate-700 ring-slate-900/50' : 'bg-slate-50 border-slate-100 ring-slate-900/5'}`}>
@@ -665,7 +665,7 @@ const App: React.FC = () => {
                           <ul className="space-y-12">
                             {checklist.map((item, i) => (
                               <li key={i} className="flex gap-8 items-start">
-                                <div className="shrink-0"><div className={`w-10 h-10 rounded-2xl border flex items-center justify-center shadow-xl font-black text-sm ${state.accessibility.isDarkMode ? 'bg-slate-900 border-slate-700 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>{i + 1}</div></div>
+                                <div className="shrink-0"><div className={`w-10 h-10 rounded-2xl border flex items-center justify-center shadow-xl font-black ${state.accessibility.isDarkMode ? 'bg-slate-900 border-slate-700 text-white' : 'bg-white border-slate-200 text-slate-900'} ${getTextSize('text-sm', 'text-lg')}`}>{i + 1}</div></div>
                                 <div className={`leading-relaxed pt-1 flex-grow ${state.accessibility.isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>{item}</div>
                               </li>
                             ))}
@@ -677,22 +677,22 @@ const App: React.FC = () => {
                         <details className="group">
                           <summary className="list-none cursor-pointer">
                             <div className="flex items-center justify-between p-6 bg-slate-100 dark:bg-blue-900/20 rounded-[2rem] hover:bg-slate-200 dark:hover:bg-blue-900/30 transition-colors">
-                              <div className="flex items-center gap-3 text-slate-600 dark:text-blue-300 font-bold uppercase tracking-widest text-[10px]">
+                              <div className={`flex items-center gap-3 text-slate-600 dark:text-blue-300 font-bold uppercase tracking-widest ${getTextSize('text-[10px]', 'text-sm')}`}>
                                 <BookOpen className="w-4 h-4" />
                                 Legal Verification Basis
                               </div>
                               <ChevronRight className="w-4 h-4 text-slate-400 transition-transform group-open:rotate-90" />
                             </div>
                           </summary>
-                          <div className="p-6 pt-4 text-xs leading-relaxed text-slate-600 dark:text-slate-400 space-y-4 animate-in fade-in slide-in-from-top-2">
+                          <div className={`p-6 pt-4 leading-relaxed text-slate-600 dark:text-slate-400 space-y-4 animate-in fade-in slide-in-from-top-2 ${getTextSize('text-xs', 'text-base')}`}>
                             <p>This guidance is derived directly from the <strong>H.R.8281 - SAVE Act</strong>. It strictly adheres to federal requirements for documentary proof of citizenship.</p>
                             <button
                               onClick={() => setView('statutes')}
-                              className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline font-bold uppercase tracking-wider text-[10px]"
+                              className={`inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline font-bold uppercase tracking-wider ${getTextSize('text-[10px]', 'text-sm')}`}
                             >
                               Read Full Statute Analysis <ExternalLink className="w-3 h-3" />
                             </button>
-                            <div className="pt-4 border-t border-slate-200 dark:border-slate-700 flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-slate-400">
+                            <div className={`pt-4 border-t border-slate-200 dark:border-slate-700 flex items-center gap-2 font-black uppercase tracking-[0.2em] text-slate-400 ${getTextSize('text-[9px]', 'text-sm')}`}>
                               <ShieldCheck className="w-3 h-3" />
                               Privacy Shield: Zero Data Saved
                             </div>
@@ -703,7 +703,7 @@ const App: React.FC = () => {
                       <div className="flex flex-col gap-4">
                         {status !== 'Likely Eligible' && actionItems.length > 0 ? (
                           <div className={`p-6 rounded-[2.5rem] border ${state.accessibility.isDarkMode ? 'bg-amber-950/30 border-amber-900/30' : 'bg-amber-50 border-amber-100'}`}>
-                            <h4 className={`text-center text-xs font-black uppercase tracking-widest mb-6 ${state.accessibility.isDarkMode ? 'text-amber-400' : 'text-amber-700'}`}>
+                            <h4 className={`text-center font-black uppercase tracking-widest mb-6 ${state.accessibility.isDarkMode ? 'text-amber-400' : 'text-amber-700'} ${getTextSize('text-xs', 'text-base')}`}>
                               Steps to resolve your status:
                             </h4>
                             <div className="space-y-4 mb-8">
@@ -713,8 +713,8 @@ const App: React.FC = () => {
                                     {action.icon}
                                   </div>
                                   <div>
-                                    <div className={`text-xs font-black uppercase ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'}`}>{action.title}</div>
-                                    <div className={`text-xs leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>{action.description}</div>
+                                    <div className={`font-black uppercase ${state.accessibility.isDarkMode ? 'text-white' : 'text-slate-900'} ${getTextSize('text-xs', 'text-base')}`}>{action.title}</div>
+                                    <div className={`leading-relaxed ${state.accessibility.isDarkMode ? 'text-slate-400' : 'text-slate-600'} ${getTextSize('text-xs', 'text-base')}`}>{action.description}</div>
                                   </div>
                                 </div>
                               ))}
@@ -727,7 +727,7 @@ const App: React.FC = () => {
                                   : 'https://vote.gov';
                                 window.open(targetUrl, '_blank');
                               }}
-                              className="w-full flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-black uppercase tracking-[0.2em] py-6 rounded-[2rem] transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:scale-95 text-xs"
+                              className={`w-full flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-black uppercase tracking-[0.2em] py-6 rounded-[2rem] transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:scale-95 ${getTextSize('text-xs', 'text-base')}`}
                             >
                               Register to Vote (Vote.gov) <ExternalLink className="w-4 h-4" />
                             </button>
@@ -748,24 +748,24 @@ const App: React.FC = () => {
                           </button>
                         )}
 
-                        <button onClick={reset} className="w-full flex items-center justify-center gap-3 bg-transparent text-slate-500 dark:text-slate-400 font-bold uppercase tracking-[0.2em] py-5 rounded-[2rem] hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 active:scale-95 text-[10px]">
+                        <button onClick={reset} className={`w-full flex items-center justify-center gap-3 bg-transparent text-slate-500 dark:text-slate-400 font-bold uppercase tracking-[0.2em] py-5 rounded-[2rem] hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 active:scale-95 ${getTextSize('text-[10px]', 'text-sm')}`}>
                           <RotateCcw className="w-3 h-3" /> Check Another Person
                         </button>
 
                         <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-700">
-                          <h4 className="text-center text-[10px] font-black uppercase tracking-widest mb-4 text-slate-400 dark:text-slate-500">Official Sources & Status</h4>
+                          <h4 className={`text-center font-black uppercase tracking-widest mb-4 text-slate-400 dark:text-slate-500 ${getTextSize('text-[10px]', 'text-sm')}`}>Official Sources & Status</h4>
                           <div className="flex flex-wrap justify-center gap-3">
-                            <a href="https://www.congress.gov/bill/118th-congress/house-bill/8281/text" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                            <a href="https://www.congress.gov/bill/118th-congress/house-bill/8281/text" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${getTextSize('text-[10px]', 'text-sm')}`}>
                               <ExternalLink className="w-3 h-3" /> Bill Text
                             </a>
-                            <a href="https://www.congress.gov/bill/118th-congress/house-bill/8281" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                            <a href="https://www.congress.gov/bill/118th-congress/house-bill/8281" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${getTextSize('text-[10px]', 'text-sm')}`}>
                               <ExternalLink className="w-3 h-3" /> Official Summaries
                             </a>
-                            <a href="https://www.congress.gov/bill/118th-congress/house-bill/8281/all-actions" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                            <a href="https://www.congress.gov/bill/118th-congress/house-bill/8281/all-actions" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${getTextSize('text-[10px]', 'text-sm')}`}>
                               <ExternalLink className="w-3 h-3" /> Legislative Status
                             </a>
                           </div>
-                          <p className="mt-6 text-center text-[10px] text-slate-400 dark:text-slate-500 max-w-xs mx-auto leading-relaxed">
+                          <p className={`mt-6 text-center text-slate-400 dark:text-slate-500 max-w-xs mx-auto leading-relaxed ${getTextSize('text-[10px]', 'text-sm')}`}>
                             This tool is not affiliated with any government agency. Always confirm requirements with your state election office.
                           </p>
                         </div>
@@ -797,10 +797,10 @@ const App: React.FC = () => {
               />
             </div>
             <div>
-              <h1 className="text-lg font-black text-granite-900 dark:text-white tracking-tight leading-none group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors hidden md:block uppercase">
+              <h1 className={`font-black text-granite-900 dark:text-white tracking-tight leading-none group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors hidden md:block uppercase ${getTextSize('text-lg', 'text-2xl')}`}>
                 {state.selectedState ? state.selectedState.toUpperCase() : 'US'} CIVIC <span className="text-blue-600 dark:text-blue-500">ACTION</span>
               </h1>
-              <p className="text-xs font-bold text-granite-500 dark:text-slate-400 tracking-wide uppercase hidden md:block">
+              <p className={`font-bold text-granite-500 dark:text-slate-400 tracking-wide uppercase hidden md:block ${getTextSize('text-xs', 'text-base')}`}>
                 The People's Voice
               </p>
             </div>
@@ -810,13 +810,13 @@ const App: React.FC = () => {
           <nav className="flex items-center gap-4">
             <a
               href="https://nh-civic-app.vercel.app/"
-              className="text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors"
+              className={`font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors ${getTextSize('text-sm', 'text-lg')}`}
             >
               Home
             </a>
             <a
               href="https://nh-civic-app.vercel.app/transparency"
-              className="text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors"
+              className={`font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors ${getTextSize('text-sm', 'text-lg')}`}
             >
               Transparency
             </a>
@@ -825,7 +825,7 @@ const App: React.FC = () => {
             <div className="relative group/menu py-4">
               <button
                 onClick={() => setShowProjectsMenu(!showProjectsMenu)}
-                className="text-sm font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1"
+                className={`font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1 ${getTextSize('text-sm', 'text-lg')}`}
               >
                 Projects <ChevronDown className={`w-4 h-4 transition-transform ${showProjectsMenu ? 'rotate-180' : ''}`} />
               </button>
@@ -834,23 +834,23 @@ const App: React.FC = () => {
                   <a
                     href="https://us-civic-action.github.io/SAVE_ACT-Verifier/"
                     onClick={() => setShowProjectsMenu(false)}
-                    className="flex items-center gap-3 px-4 py-3 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-black dark:hover:text-white rounded-lg transition-colors"
+                    className={`flex items-center gap-3 px-4 py-3 font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-black dark:hover:text-white rounded-lg transition-colors ${getTextSize('text-xs', 'text-base')}`}
                   >
                     <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
                     <div>
                       <div>Save Act Verifier</div>
-                      <div className="text-[10px] font-normal opacity-70">Verify Eligibility</div>
+                      <div className={`font-normal opacity-70 ${getTextSize('text-[10px]', 'text-sm')}`}>Verify Eligibility</div>
                     </div>
                   </a>
                   <a
                     href="https://nh-civic-app.vercel.app/"
                     onClick={() => setShowProjectsMenu(false)}
-                    className="flex items-center gap-3 px-4 py-3 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-black dark:hover:text-white rounded-lg transition-colors"
+                    className={`flex items-center gap-3 px-4 py-3 font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-black dark:hover:text-white rounded-lg transition-colors ${getTextSize('text-xs', 'text-base')}`}
                   >
                     <Gavel className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
                     <div>
                       <div>US Civic Action App</div>
-                      <div className="text-[10px] font-normal opacity-70">Community Hub</div>
+                      <div className={`font-normal opacity-70 ${getTextSize('text-[10px]', 'text-sm')}`}>Community Hub</div>
                     </div>
                   </a>
                 </div>
@@ -867,7 +867,7 @@ const App: React.FC = () => {
 
             <button
               onClick={() => window.open('https://buy.stripe.com/cNi9ATgtb3vv9f6g1Sawo02', '_blank')}
-              className="text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 py-2.5 px-4 rounded-full transition-all shadow-md hover:shadow-lg flex items-center gap-2 transform hover:-translate-y-0.5"
+              className={`font-bold text-white bg-indigo-600 hover:bg-indigo-700 py-2.5 px-4 rounded-full transition-all shadow-md hover:shadow-lg flex items-center gap-2 transform hover:-translate-y-0.5 ${getTextSize('text-sm', 'text-lg')}`}
             >
               <Coffee className="w-4 h-4" /> <span className="hidden sm:inline">Support</span>
             </button>
@@ -892,7 +892,7 @@ const App: React.FC = () => {
           <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={() => setShowSettings(false)} />
           <div className={`relative w-full max-w-sm rounded-[2.5rem] shadow-2xl border p-8 animate-in zoom-in-95 duration-200 ${state.accessibility.isDarkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
             <div className="flex items-center justify-between mb-8">
-              <h3 className="text-sm font-black uppercase tracking-[0.2em] flex items-center gap-2">
+              <h3 className={`font-black uppercase tracking-[0.2em] flex items-center gap-2 ${getTextSize('text-sm', 'text-lg')}`}>
                 <Settings className="w-4 h-4 text-blue-500" />
                 Accessibility
               </h3>
@@ -908,7 +908,7 @@ const App: React.FC = () => {
               >
                 <div className="flex items-center gap-3">
                   {state.accessibility.isDarkMode ? <Moon className="w-5 h-5 text-blue-500" /> : <Sun className="w-5 h-5 text-slate-500" />}
-                  <span className="text-xs font-bold uppercase tracking-wider">Dark Mode</span>
+                  <span className={`font-bold uppercase tracking-wider ${getTextSize('text-xs', 'text-base')}`}>Dark Mode</span>
                 </div>
                 <div className={`w-10 h-6 rounded-full relative transition-colors ${state.accessibility.isDarkMode ? 'bg-blue-600' : 'bg-slate-300'}`}>
                   <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${state.accessibility.isDarkMode ? 'translate-x-5' : 'translate-x-1'}`} />
@@ -921,7 +921,7 @@ const App: React.FC = () => {
               >
                 <div className="flex items-center gap-3">
                   <Eye className="w-5 h-5 text-slate-500" />
-                  <span className="text-xs font-bold uppercase tracking-wider">High Contrast</span>
+                  <span className={`font-bold uppercase tracking-wider ${getTextSize('text-xs', 'text-base')}`}>High Contrast</span>
                 </div>
                 <div className={`w-10 h-6 rounded-full relative transition-colors ${state.accessibility.isHighContrast ? 'bg-blue-600' : 'bg-slate-300'}`}>
                   <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${state.accessibility.isHighContrast ? 'translate-x-5' : 'translate-x-1'}`} />
@@ -934,14 +934,14 @@ const App: React.FC = () => {
               >
                 <div className="flex items-center gap-3">
                   <Type className="w-5 h-5 text-slate-500" />
-                  <span className="text-xs font-bold uppercase tracking-wider">Large Text</span>
+                  <span className={`font-bold uppercase tracking-wider ${getTextSize('text-xs', 'text-base')}`}>Large Text</span>
                 </div>
                 <div className={`w-10 h-6 rounded-full relative transition-colors ${state.accessibility.isLargeText ? 'bg-blue-600' : 'bg-slate-300'}`}>
                   <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${state.accessibility.isLargeText ? 'translate-x-5' : 'translate-x-1'}`} />
                 </div>
               </button>
             </div>
-            <p className="mt-8 text-[10px] text-slate-600 dark:text-slate-400 font-bold uppercase tracking-[0.2em] leading-relaxed">Preferences are saved locally to this browser.</p>
+            <p className={`mt-8 text-slate-600 dark:text-slate-400 font-bold uppercase tracking-[0.2em] leading-relaxed ${getTextSize('text-[10px]', 'text-sm')}`}>Preferences are saved locally to this browser.</p>
           </div>
         </div>
       )}
@@ -957,10 +957,10 @@ const App: React.FC = () => {
           {/* Left Column */}
           <div className="space-y-4 max-w-sm">
             <div>
-              <h3 className="text-sm font-black text-black dark:text-white uppercase tracking-tighter">US Civic Action</h3>
-              <p className="text-xs text-slate-700 dark:text-slate-300 font-medium">Independent. Non-partisan.</p>
+              <h3 className={`font-black text-black dark:text-white uppercase tracking-tighter ${getTextSize('text-sm', 'text-lg')}`}>US Civic Action</h3>
+              <p className={`text-slate-700 dark:text-slate-300 font-medium ${getTextSize('text-xs', 'text-base')}`}>Independent. Non-partisan.</p>
             </div>
-            <p className="text-[10px] text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p className={`text-slate-600 dark:text-slate-400 leading-relaxed ${getTextSize('text-[10px]', 'text-sm')}`}>
               We are 100% ad-free and tracking-free. Running our servers relies entirely on user support.
             </p>
           </div>
@@ -968,9 +968,9 @@ const App: React.FC = () => {
           {/* Right Column / Actions */}
           <div className="flex flex-col items-center md:items-end gap-6 w-full md:w-auto">
             <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-4">
-              <button onClick={() => window.location.href = '/'} className="text-xs font-bold text-slate-800 dark:text-slate-200 hover:text-blue-900 dark:hover:text-blue-400 transition-colors">Home</button>
-              <button onClick={() => setView('statutes')} className="text-xs font-bold text-slate-800 dark:text-slate-200 hover:text-blue-900 dark:hover:text-blue-400 transition-colors">Transparency</button>
-              <button onClick={() => setShowSettings(true)} className="flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors">
+              <button onClick={() => window.location.href = '/'} className={`font-bold text-slate-800 dark:text-slate-200 hover:text-blue-900 dark:hover:text-blue-400 transition-colors ${getTextSize('text-xs', 'text-base')}`}>Home</button>
+              <button onClick={() => setView('statutes')} className={`font-bold text-slate-800 dark:text-slate-200 hover:text-blue-900 dark:hover:text-blue-400 transition-colors ${getTextSize('text-xs', 'text-base')}`}>Transparency</button>
+              <button onClick={() => setShowSettings(true)} className={`flex items-center gap-1.5 font-bold text-blue-600 hover:text-blue-700 transition-colors ${getTextSize('text-xs', 'text-base')}`}>
                 <div className="bg-blue-50 dark:bg-blue-900/30 p-1 rounded-md"><Settings className="w-3 h-3" /></div>
                 A11Y
               </button>
@@ -979,7 +979,7 @@ const App: React.FC = () => {
                 href="https://buy.stripe.com/cNi9ATgtb3vv9f6g1Sawo02"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-[#5F3DC4] hover:bg-[#5233ac] text-white px-5 py-2.5 rounded-full text-xs font-bold transition-all shadow-lg hover:shadow-xl active:scale-95"
+                className={`flex items-center gap-2 bg-[#5F3DC4] hover:bg-[#5233ac] text-white px-5 py-2.5 rounded-full font-bold transition-all shadow-lg hover:shadow-xl active:scale-95 ${getTextSize('text-xs', 'text-base')}`}
               >
                 <div className="bg-white/20 p-1 rounded-full">
                   <Coffee className="w-3 h-3" />
@@ -992,11 +992,11 @@ const App: React.FC = () => {
 
         {/* Bottom Row */}
         <div className="max-w-6xl mx-auto mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium text-center">
+          <p className={`text-slate-500 dark:text-slate-400 font-medium text-center ${getTextSize('text-[10px]', 'text-sm')}`}>
             Â© 2026 US Civic Action. Not affiliated with any state or federal government.
           </p>
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 text-[9px] font-black uppercase tracking-widest border border-emerald-100 dark:border-emerald-900/30">
+            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 font-black uppercase tracking-widest border border-emerald-100 dark:border-emerald-900/30 ${getTextSize('text-[9px]', 'text-sm')}`}>
               <WifiOff className="w-3 h-3" />
               Works Offline
             </div>
@@ -1004,7 +1004,7 @@ const App: React.FC = () => {
               href="https://github.com/us-civic-action/SAVE_ACT-Verifier"
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-bold transition-all ${state.accessibility.isDarkMode ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold transition-all ${state.accessibility.isDarkMode ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'} ${getTextSize('text-[10px]', 'text-sm')}`}
             >
               <GitBranch className="w-3 h-3" />
               Open Source Project
