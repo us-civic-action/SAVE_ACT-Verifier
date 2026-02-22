@@ -7,7 +7,7 @@ import {
   Linkedin, Moon, Sun, ChevronDown, Check, Sparkles, Send, Loader2, ArrowRight,
   UserCheck, CreditCard, Coffee, Layers, Gavel, Globe, Eye, Settings,
   Heart, AlertTriangle, XCircle, Scale, Building2, Fingerprint, MapPin, ClipboardCheck,
-  Clock, BookOpen, ArrowLeft, Lock, Type, WifiOff, GitBranch, Database, FileCode, Github, LayoutGrid, Home
+  Clock, BookOpen, ArrowLeft, Lock, Type, WifiOff, GitBranch, Database, FileCode, Github, LayoutGrid, Home, Stethoscope
 } from 'lucide-react';
 import { AppState, EligibilityStatus, AppView, AccessibilitySettings } from './types';
 import { QUESTIONS, STATES, ACCEPTABLE_DPOC, BRIDGING_DOCUMENTS, RESIDENCY_EXAMPLES, SAVE_ACT_BILL_URL } from './constants';
@@ -18,7 +18,7 @@ const App: React.FC = () => {
   const savedAccessibility = localStorage.getItem('accessibility_settings');
   const initialAccessibility: AccessibilitySettings = savedAccessibility
     ? JSON.parse(savedAccessibility)
-    : { isDarkMode: false, isHighContrast: false, isLargeText: false };
+    : { isDarkMode: true, isHighContrast: false, isLargeText: false };
 
   const [state, setState] = useState<AppState>({
     currentStep: -1,
@@ -563,17 +563,28 @@ const App: React.FC = () => {
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3 max-h-[18rem] overflow-y-auto pr-2 custom-scrollbar p-1">
-                    {filteredStates.map((s) => (
-                      <button
-                        key={s.code}
-                        onClick={() => handleStateSelect(s.code)}
-                        className={`flex items-center justify-between px-6 py-5 border-2 rounded-[1.2rem] hover:shadow-lg transition-all text-left group active:scale-[0.97] ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700 hover:border-blue-500' : 'bg-white border-slate-50 hover:border-blue-900 hover:bg-blue-50/30'}`}
-                      >
-                        <span className={`font-black uppercase tracking-tight group-hover:text-blue-900 dark:group-hover:text-blue-400 ${state.accessibility.isDarkMode ? 'text-white' : 'text-black'} ${getTextSize('text-xs', 'text-base')}`}>{s.name}</span>
-                        <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-900 transition-transform group-hover:translate-x-1" />
-                      </button>
-                    ))}
+                  <div className="relative mt-4">
+                    <div className="grid grid-cols-2 gap-3 max-h-[18rem] overflow-y-auto pr-2 custom-scrollbar p-1">
+                      {filteredStates.map((s) => (
+                        <button
+                          key={s.code}
+                          onClick={() => handleStateSelect(s.code)}
+                          className={`flex items-center justify-between px-6 py-5 border-2 rounded-[1.2rem] hover:shadow-lg transition-all text-left group active:scale-[0.97] ${state.accessibility.isDarkMode ? 'bg-slate-800 border-slate-700 hover:border-blue-500' : 'bg-white border-slate-50 hover:border-blue-900 hover:bg-blue-50/30'}`}
+                        >
+                          <span className={`font-black uppercase tracking-tight group-hover:text-blue-900 dark:group-hover:text-blue-400 ${state.accessibility.isDarkMode ? 'text-white' : 'text-black'} ${getTextSize('text-xs', 'text-base')}`}>{s.name}</span>
+                          <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-900 transition-transform group-hover:translate-x-1" />
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Visual Scroll Indicator */}
+                    <div className="mt-5 flex justify-center pointer-events-none">
+                      <div className="bg-slate-100 dark:bg-slate-800/80 px-5 py-2.5 rounded-full flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest shadow-sm">
+                        <ChevronDown className="w-4 h-4 animate-bounce text-blue-500" />
+                        Scroll for all 50 states
+                        <ChevronDown className="w-4 h-4 animate-bounce text-blue-500" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -788,7 +799,7 @@ const App: React.FC = () => {
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
 
           {/* Logo & Brand - Link to Main Hub */}
-          <a href="https://nh-civic-app.vercel.app/" className="flex items-center gap-3 group">
+          <a href="/" className="flex items-center gap-3 group">
             <div className="relative h-14 w-auto aspect-[3/2] overflow-hidden transition-transform group-hover:scale-105">
               <img
                 src={civicLogo}
@@ -809,13 +820,13 @@ const App: React.FC = () => {
           {/* Desktop & Mobile Navigation */}
           <nav className="flex items-center gap-4">
             <a
-              href="https://nh-civic-app.vercel.app/"
+              href="/"
               className={`font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors ${getTextSize('text-sm', 'text-lg')}`}
             >
               Home
             </a>
             <a
-              href="https://nh-civic-app.vercel.app/transparency"
+              href="/transparency"
               className={`font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors ${getTextSize('text-sm', 'text-lg')}`}
             >
               Transparency
@@ -827,12 +838,12 @@ const App: React.FC = () => {
                 onClick={() => setShowProjectsMenu(!showProjectsMenu)}
                 className={`font-bold text-granite-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1 ${getTextSize('text-sm', 'text-lg')}`}
               >
-                Projects <ChevronDown className={`w-4 h-4 transition-transform ${showProjectsMenu ? 'rotate-180' : ''}`} />
+                Tools & Resources <ChevronDown className={`w-4 h-4 transition-transform ${showProjectsMenu ? 'rotate-180' : ''}`} />
               </button>
               <div className={`absolute top-full right-0 w-56 pt-2 transition-all duration-200 z-50 transform ${showProjectsMenu ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2 group-hover/menu:opacity-100 group-hover/menu:visible group-hover/menu:translate-y-0'}`}>
                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl overflow-hidden p-1">
                   <a
-                    href="https://us-civic-action.github.io/SAVE_ACT-Verifier/"
+                    href="/save-act/"
                     onClick={() => setShowProjectsMenu(false)}
                     className={`flex items-center gap-3 px-4 py-3 font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-black dark:hover:text-white rounded-lg transition-colors ${getTextSize('text-xs', 'text-base')}`}
                   >
@@ -843,7 +854,18 @@ const App: React.FC = () => {
                     </div>
                   </a>
                   <a
-                    href="https://nh-civic-app.vercel.app/"
+                    href="/medbill/"
+                    onClick={() => setShowProjectsMenu(false)}
+                    className={`flex items-center gap-3 px-4 py-3 font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-black dark:hover:text-white rounded-lg transition-colors ${getTextSize('text-xs', 'text-base')}`}
+                  >
+                    <Stethoscope className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+                    <div>
+                      <div>Medical Bill Auditor</div>
+                      <div className={`font-normal opacity-70 ${getTextSize('text-[10px]', 'text-sm')}`}>AI Bill Analysis</div>
+                    </div>
+                  </a>
+                  <a
+                    href="/"
                     onClick={() => setShowProjectsMenu(false)}
                     className={`flex items-center gap-3 px-4 py-3 font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-black dark:hover:text-white rounded-lg transition-colors ${getTextSize('text-xs', 'text-base')}`}
                   >
